@@ -10,20 +10,17 @@ public class Partido {
 	private LocalTime horarioPartido;
 	private Equipo equipoLocal;
 	private Equipo equipoVisitante;
-	//private Estadio estadio;
-	//private Torneo torneo;
+	private Estadio estadio;
+	//private Torneo torneo; Aun no esta implementado la clase
 	
-	/// Los torneo y estadio como son clase aparte y todavia no estan hechos no puedo implementarlos
-	
-	public Partido(int idPartido, LocalDate fechaPartido, LocalTime horarioPartido, Equipo equipoLocal, Equipo equipoVisitante) {
+	public Partido(int idPartido, LocalDate fechaPartido, LocalTime horarioPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio) {
         this.idPartido = idPartido;
-        this.fechaPartido = fechaPartido;;
+        this.fechaPartido = fechaPartido;
         this.horarioPartido = horarioPartido;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
-       // this.estadio = estadio;
-      //  this.torneo = torneo;
-     
+       	this.estadio = estadio;
+      	// this.torneo = torneo; // Aun no esta implementado la clase
     }
 	
 	
@@ -62,6 +59,11 @@ public class Partido {
 		this.equipoVisitante = equipoVisitante;
 	}
 	
-	
+	public Estadio getEstadio() {
+		return estadio;
+	}
 
+	public void setEstadio(Estadio estadio) {
+		this.estadio = estadio;
+	}
 }

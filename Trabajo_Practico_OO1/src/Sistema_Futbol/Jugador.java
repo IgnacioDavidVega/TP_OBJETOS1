@@ -1,9 +1,15 @@
+//Definicion de la clase Jugador
+
 package Sistema_Futbol;
 
+
+// Importaciones de librerias
 import java.time.LocalDate;
 
+
+// Clase Jugador
 public class Jugador {
-    // Atributos de la clase Jugador
+    
     private int id;
     private String nombre;
     private String apellido;
@@ -27,7 +33,7 @@ public class Jugador {
         this.dorsal = dorsal;
     }
 
-    // Getters y Setters
+    // Implementacion de Getters y Setters
     public int getId() {
         return id;
     }

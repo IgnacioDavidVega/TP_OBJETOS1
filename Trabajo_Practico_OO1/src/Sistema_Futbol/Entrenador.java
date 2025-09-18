@@ -1,8 +1,8 @@
 package Sistema_Futbol;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList; No creo que sea necesario en la clase entrenador
+//import java.util.List; No creo que sea necesario en la clase entrenador
 
 public class Entrenador {
     private int id;

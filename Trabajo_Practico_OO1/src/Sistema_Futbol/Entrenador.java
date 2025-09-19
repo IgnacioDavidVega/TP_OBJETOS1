@@ -1,8 +1,6 @@
 package Sistema_Futbol;
 
 import java.time.LocalDate;
-//import java.util.ArrayList; No creo que sea necesario en la clase entrenador
-//import java.util.List; No creo que sea necesario en la clase entrenador
 
 public class Entrenador {
     private int id;
@@ -87,12 +85,11 @@ public class Entrenador {
 	}
 
 	
-	public boolean eliminarEntrenador(int idEntrenador) throws Exception{
-		if (traerEntrenador(idEntrenador) == null) {
+	public boolean eliminarEntrenador(int dni) throws Exception{
+		if (traerEntrenador(dni) == null) {
 			throw new Exception("Error al eliminar entrenador: el entrenador no existe.");
 		}
-		System.out.println("Entrenador eliminado con exito.");
-		return listadoEntrenadores.remove(traerEntrenador(idEntrenador));
+		return listadoEntrenadores.remove(traerEntrenador(dni));
 	}
 	
 	public Entrenador traerEntrenador(int id) {
@@ -129,7 +126,6 @@ public class Entrenador {
 		for (Entrenador e : listadoEntrenadores) {
 			if (e.getEstrategiaFavorita().equals(estrategiaFavorita)) {
 				entrenadoresFiltrados.add(e);
-				e.toString();
 			}
 		}
 		return entrenadoresFiltrados;

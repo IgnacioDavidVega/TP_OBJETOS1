@@ -2,125 +2,197 @@ package Sistema_Futbol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Sistema {
-	private List<Equipo> listaEquipos;
-	private List<Entrenador> listaEntrenador;
-	private List<Jugador> listaJugador;
-	private List<Torneo> listaTorneo;
-	private List<Partido> listaPartido;
-	private List<Registro> listaRegistro;
+	private List<Equipo> listadoEquipos;
+	private List<Entrenador> listadoEntrenadores;
+	private List<Jugador> listadoJugadores;
+	private List<Torneo> listadoTorneos;
+	private List<Partido> listadoPartidos;
+	private List<Registro> listadoRegistros;
 	
-	public Sistema(List<Equipo> listaEquipos, List<Entrenador> listaEntrenador, List<Jugador> listaJugador,
-			List<Torneo> listaTorneo, List<Partido> listaPartido, List<Registro> listaRegistro) {
-		this.listaEquipos = new ArrayList<>();
-		this.listaEntrenador = new ArrayList<>();
-		this.listaJugador = new ArrayList<>();
-		this.listaTorneo = new ArrayList<>();
-		this.listaPartido = new ArrayList<>();
-		this.listaRegistro = new ArrayList<>();
+	public Sistema(List<Equipo> listadoEquipos, List<Entrenador> listadoEntrenadores, List<Jugador> listadoJugadores,
+			List<Torneo> listadoTorneos, List<Partido> listadoPartidos, List<Registro> listadoRegistros) {
+		this.listadoEquipos = new ArrayList<Equipo>();
+		this.listadoEntrenadores = new ArrayList<Entrenador>();
+		this.listadoJugadores = new ArrayList<Jugador>();
+		this.listadoTorneos = new ArrayList<Torneo>();
+		this.listadoPartidos = new ArrayList<Partido>();
+		this.listadoRegistros = new ArrayList<Registro>();
+	}
+	
+	// Agregué este constructor para que no haga falta tener listas ya creadas cuando se quiera iniciar Sistema
+	public Sistema() {
+		super();
+		this.listadoEquipos = new ArrayList<Equipo>();
+		this.listadoEntrenadores = new ArrayList<Entrenador>();
+		this.listadoJugadores = new ArrayList<Jugador>();
+		this.listadoTorneos = new ArrayList<Torneo>();
+		this.listadoPartidos = new ArrayList<Partido>();
+		this.listadoRegistros = new ArrayList<Registro>();
 	}
 	
 	
 	public void addEquipo(Equipo equipo) {
-		this.listaEquipos.add(equipo);
+		this.listadoEquipos.add(equipo);
 	}
 	
 	public void addEntrenador(Entrenador entrenador) {
-		this.listaEntrenador.add(entrenador);
+		this.listadoEntrenadores.add(entrenador);
 	}
 	
 	public void addJugador(Jugador jugador) {
-		this.listaJugador.add(jugador);
+		this.listadoJugadores.add(jugador);
 	}
 
 	public void addTorneo(Torneo torneo) {
-		this.listaTorneo.add(torneo);
+		this.listadoTorneos.add(torneo);
 	}
 	
 	public void addPartido(Partido partido) {
-		this.listaPartido.add(partido);
+		this.listadoPartidos.add(partido);
 	}
 
 	public void addRegistro(Registro registro) {
-		this.listaRegistro.add(registro);
+		this.listadoRegistros.add(registro);
 	}
 	
 	//
 	
 	public void removeEquipo(Equipo equipo) {
-		this.listaEquipos.remove(equipo);
+		this.listadoEquipos.remove(equipo);
 	}
 	
 	public void removeEntrenador(Entrenador entrenador) {
-		this.listaEntrenador.remove(entrenador);
+		this.listadoEntrenadores.remove(entrenador);
 	}
 	
 	public void removeJugador(Jugador jugador) {
-		this.listaJugador.remove(jugador);
+		this.listadoJugadores.remove(jugador);
 	}
 
 	public void removeTorneo(Torneo torneo) {
-		this.listaTorneo.remove(torneo);
+		this.listadoTorneos.remove(torneo);
 	}
 	
 	public void removePartido(Partido partido) {
-		this.listaPartido.remove(partido);
+		this.listadoPartidos.remove(partido);
 	}
 
 	public void removeRegistro(Registro registro) {
-		this.listaRegistro.remove(registro);
+		this.listadoRegistros.remove(registro);
 	}
 	
 	//
 	
 	public List<Equipo> getListaEquipos() {
-		return listaEquipos;
+		return listadoEquipos;
 	}
 
-	public void setListaEquipos(List<Equipo> listaEquipos) {
-		this.listaEquipos = listaEquipos;
+	public void setListaEquipos(List<Equipo> listadoEquipos) {
+		this.listadoEquipos = listadoEquipos;
 	}
 
 	public List<Entrenador> getListaEntrenador() {
-		return listaEntrenador;
+		return listadoEntrenadores;
 	}
 
-	public void setListaEntrenador(List<Entrenador> listaEntrenador) {
-		this.listaEntrenador = listaEntrenador;
+	public void setListaEntrenador(List<Entrenador> listadoEntrenadores) {
+		this.listadoEntrenadores = listadoEntrenadores;
 	}
 
 	public List<Jugador> getListaJugador() {
-		return listaJugador;
+		return listadoJugadores;
 	}
 
-	public void setListaJugador(List<Jugador> listaJugador) {
-		this.listaJugador = listaJugador;
+	public void setListaJugador(List<Jugador> listadoJugadores) {
+		this.listadoJugadores = listadoJugadores;
 	}
 
 	public List<Torneo> getListaTorneo() {
-		return listaTorneo;
+		return listadoTorneos;
 	}
 
-	public void setListaTorneo(List<Torneo> listaTorneo) {
-		this.listaTorneo = listaTorneo;
+	public void setListaTorneo(List<Torneo> listadoTorneos) {
+		this.listadoTorneos = listadoTorneos;
 	}
 
 	public List<Partido> getListaPartido() {
-		return listaPartido;
+		return listadoPartidos;
 	}
 
-	public void setListaPartido(List<Partido> listaPartido) {
-		this.listaPartido = listaPartido;
+	public void setListaPartido(List<Partido> listadoPartidos) {
+		this.listadoPartidos = listadoPartidos;
 	}
 
 	public List<Registro> getListaRegistro() {
-		return listaRegistro;
+		return listadoRegistros;
 	}
 
-	public void setListaRegistro(List<Registro> listaRegistro) {
-		this.listaRegistro = listaRegistro;
+	public void setListaRegistro(List<Registro> listadoRegistros) {
+		this.listadoRegistros = listadoRegistros;
 	}
 	
+	// MÉTODOS RELACIONADOS A ENTRENADOR
+	public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
+			String estrategiaFavorita) throws Exception {
+		if (traerEntrenador(dni) != null) {
+			throw new Exception("Error al ingresar entrenador: el entrenador ya existe en el catalogo");
+		}
+		int id = 1;
+		if (listadoEntrenadores.size() > 0) {
+			id = listadoEntrenadores.get(listadoEntrenadores.size() - 1).getId() + 1;
+		}
+		return listadoEntrenadores.add(new Entrenador(id, nombre, apellido, dni, fechaNacimiento, estrategiaFavorita));
+	}
+
+	
+	public boolean eliminarEntrenador(int dni) throws Exception{
+		if (traerEntrenador(dni) == null) {
+			throw new Exception("Error al eliminar entrenador: el entrenador no existe.");
+		}
+		return listadoEntrenadores.remove(traerEntrenador(dni));
+	}
+	
+	/* NO CREO QUE HAGA FALTA ESTE METODO
+	public Entrenador traerEntrenador(int id) {
+		Entrenador retornoEntrenador = null;
+		
+		int i = 0;
+		
+		while (i < listadoEntrenadores.size() && retornoEntrenador == null) {
+			if (listadoEntrenadores.get(i).getId() == id) {
+				retornoEntrenador = listadoEntrenadores.get(i);
+			}
+			i++;
+		}
+		return retornoEntrenador;
+	}*/
+	
+	public Entrenador traerEntrenador(long dni) {
+		Entrenador retornoEntrenador = null;
+		
+		int i = 0;
+		
+		while (i < listadoEntrenadores.size() && retornoEntrenador == null) {
+			if (listadoEntrenadores.get(i).getDni() == dni) {
+				retornoEntrenador = listadoEntrenadores.get(i);
+			}
+			i++;
+		}
+		return retornoEntrenador;
+	}
+	
+	public List<Entrenador> traerEntrenadores(String estrategiaFavorita) {
+		List<Entrenador> entrenadoresFiltrados = new ArrayList<>();
+		
+		for (Entrenador e : listadoEntrenadores) {
+			if (e.getEstrategiaFavorita().equals(estrategiaFavorita)) {
+				entrenadoresFiltrados.add(e);
+			}
+		}
+		return entrenadoresFiltrados;
+	}
 	
 }

@@ -15,7 +15,7 @@ public class Equipo {
     private String codUnico;
     private LocalDate fechaFundacion;
     private Entrenador entrenador;
-    private List<Jugador> listaJugadores = new ArrayList<>();
+    private List<Jugador> listaJugadores;
     private Estadio estadio;
 
     
@@ -27,6 +27,7 @@ public class Equipo {
         this.fechaFundacion = fechaFundacion;
         this.entrenador = entrenador;
         this.estadio = estadio;
+        this.listaJugadores = new ArrayList<Jugador>();
     }
 
     // Implementacion de Getters y Setters

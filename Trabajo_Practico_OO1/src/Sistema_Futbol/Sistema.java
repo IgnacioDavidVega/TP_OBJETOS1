@@ -11,14 +11,13 @@ public class Sistema {
 	private List<Partido> listaPartido;
 	private List<Registro> listaRegistro;
 	
-	public Sistema(List<Equipo> listaEquipos, List<Entrenador> listaEntrenador, List<Jugador> listaJugador,
-			List<Torneo> listaTorneo, List<Partido> listaPartido, List<Registro> listaRegistro) {
-		this.listaEquipos = new ArrayList<>();
-		this.listaEntrenador = new ArrayList<>();
-		this.listaJugador = new ArrayList<>();
-		this.listaTorneo = new ArrayList<>();
-		this.listaPartido = new ArrayList<>();
-		this.listaRegistro = new ArrayList<>();
+	public Sistema() {
+		this.listaEquipos = new ArrayList<Equipo>();
+		this.listaEntrenador = new ArrayList<Entrenador>();
+		this.listaJugador = new ArrayList<Jugador>();
+		this.listaTorneo = new ArrayList<Torneo>();
+		this.listaPartido = new ArrayList<Partido>();
+		this.listaRegistro = new ArrayList<Registro>();
 	}
 	
 	
@@ -121,6 +120,4 @@ public class Sistema {
 	public void setListaRegistro(List<Registro> listaRegistro) {
 		this.listaRegistro = listaRegistro;
 	}
-	
-	
 }

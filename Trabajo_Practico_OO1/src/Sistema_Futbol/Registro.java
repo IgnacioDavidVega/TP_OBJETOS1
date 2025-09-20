@@ -79,9 +79,5 @@ public class Registro {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}
-	
-	
-	
-	
+	}	
 }

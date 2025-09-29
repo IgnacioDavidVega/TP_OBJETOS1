@@ -5,13 +5,14 @@ import java.time.LocalDate;
 //import java.util.List; No creo que sea necesario en la clase entrenador
 
 public class Entrenador {
-    private int id;
-    private String nombre;
-    private String apellido;
-    private long dni;
-    private LocalDate fechaNacimiento;
-    private String estrategiaFavorita;
-    
+	private int id;
+	private String nombre;
+	private String apellido;
+	private long dni;
+	private LocalDate fechaNacimiento;
+	private String estrategiaFavorita;
+
+	// Constructor
 	public Entrenador(int id, String nombre, String apellido, long dni, LocalDate fechaNacimiento,
 			String estrategiaFavorita) {
 		super();
@@ -23,6 +24,7 @@ public class Entrenador {
 		this.estrategiaFavorita = estrategiaFavorita;
 	}
 
+	// Getters and Setters
 	public int getId() {
 		return id;
 	}
@@ -70,70 +72,35 @@ public class Entrenador {
 	public void setEstrategiaFavorita(String estrategiaFavorita) {
 		this.estrategiaFavorita = estrategiaFavorita;
 	}
-	
-	/* MÉTODOS QUE HAY QUE AGREGAR A LA CLASE SISTEMA
 
-
-	public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
-			String estrategiaFavorita) throws Exception {
-		if (traerEntrenador(dni) != null) {
-			throw new Exception("Error al ingresar entrenador: el entrenador ya existe en el catalogo");
-		}
-		int id = 1;
-		if (listadoEntrenadores.size() > 0) {
-			id = listadoEntrenadores.get(listadoEntrenadores.size() - 1).getId() + 1;
-		}
-		return listadoEntrenadores.add(new Entrenador(id, nombre, apellido, dni, fechaNacimiento, estrategiaFavorita));
+	// To String
+	@Override
+	public String toString() {
+		return "Entrenador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+				+ ", fechaNacimiento=" + fechaNacimiento + ", estrategiaFavorita=" + estrategiaFavorita + "]";
 	}
 
-	
-	public boolean eliminarEntrenador(int idEntrenador) throws Exception{
-		if (traerEntrenador(idEntrenador) == null) {
-			throw new Exception("Error al eliminar entrenador: el entrenador no existe.");
-		}
-		System.out.println("Entrenador eliminado con exito.");
-		return listadoEntrenadores.remove(traerEntrenador(idEntrenador));
+	// Hash and equals
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
-	
-	public Entrenador traerEntrenador(int id) {
-		Entrenador retornoEntrenador = null;
-		
-		int i = 0;
-		
-		while (i < listadoEntrenadores.size() && retornoEntrenador == null) {
-			if (listadoEntrenadores.get(i).getId() == idEntrenador) {
-				retornoEntrenador = listadoEntrenadores.get(i);
-			}
-			i++;
-		}
-		return retornoEntrenador;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entrenador other = (Entrenador) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
-	
-	public Entrenador traerEntrenador(long dni) {
-		Entrenador retornoEntrenador = null;
-		
-		int i = 0;
-		
-		while (i < listadoEntrenadores.size() && retornoEntrenador == null) {
-			if (listadoEntrenadores.get(i).getDni() == dni) {
-				retornoEntrenador = listadoEntrenadores.get(i);
-			}
-			i++;
-		}
-		return retornoEntrenador;
-	}
-	
-	public List<Entrenador> traerEntrenadores(String estrategiaFavorita) {
-		List<Entrenador> entrenadoresFiltrados = new ArrayList<>();
-		
-		for (Entrenador e : listadoEntrenadores) {
-			if (e.getEstrategiaFavorita().equals(estrategiaFavorita)) {
-				entrenadoresFiltrados.add(e);
-				e.toString();
-			}
-		}
-		return entrenadoresFiltrados;
-	}
-	
-	*/
+
 }

@@ -18,6 +18,7 @@ public class TestSistema {
             sistema.agregarEntrenador("Ignacio David", "Vega", 42366713, LocalDate.of(2000, 01, 11), "Ataques rapidos");
             sistema.agregarEntrenador("Ricardo Fabian", "Villalobos Valdez", 43092082, LocalDate.of(2000, 12, 26),
                     "Ataques rapidos");
+            sistema.agregarEntrenador("Cletus", "Sota", 48975569, LocalDate.of(2007, 9, 30), "Posesion");
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -30,7 +31,7 @@ public class TestSistema {
         // TEST PARA ELIMINAR UN ENTRENADOR
         System.out.println("");
         try {
-            sistema.eliminarEntrenadorPorDni(42366713);
+            sistema.eliminarEntrenadorPorDni(48369877);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -52,6 +53,14 @@ public class TestSistema {
         System.out.println("");
         for (Entrenador entrenador : sistema.getListaEntrenador()) {
             System.out.println(entrenador);
+        }
+
+        //TEST UTILIDAD CALCULO MAYOR DE EDAD
+        System.out.println("");
+        try {
+        System.out.println(sistema.comprobarMayorEdad(sistema.traerEntrenador(3).getFechaNacimiento()));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 }

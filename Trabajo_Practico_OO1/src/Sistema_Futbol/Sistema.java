@@ -137,6 +137,25 @@ public class Sistema {
 		return true;
 	}
 
+	//UTILIDAD COMPROBAR MAYOR DE EDAD
+
+	public boolean comprobarMayorEdad (LocalDate fechaNacimiento){
+
+		boolean mayorEdad;
+		
+		LocalDate fechaActual = LocalDate.now();
+		LocalDate calculoMayorEdad = fechaNacimiento.plusYears(18);
+		
+		if (calculoMayorEdad.isBefore(fechaActual)){
+			mayorEdad = true;
+		}else{
+			mayorEdad = false;
+		}
+
+		return mayorEdad;
+	}
+
+
 	// ENTRENADORES
 	// ALTA ENTRENADOR
 	public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,

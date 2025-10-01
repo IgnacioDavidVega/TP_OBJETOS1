@@ -30,3 +30,6 @@ replay_pid*
 
 # Archivos de configuración de VS Code
 .vscode/
+
+#Ignore TestSistema.java file
+Trabajo_Practico_OO1/src/test/TestSistema.java

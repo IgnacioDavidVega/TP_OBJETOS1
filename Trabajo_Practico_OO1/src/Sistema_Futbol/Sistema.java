@@ -130,7 +130,7 @@ public class Sistema {
 		// Validacion DNI tiene que ser 8 digitos
 		String stringDni = String.valueOf(dni);
 
-		if (stringDni.length() > 8 || stringDni.length() < 8) {
+		if (stringDni.length() != 8) {
 			throw new Exception("El DNI tiene que tener 8 digitos.");
 		}
 
@@ -162,11 +162,7 @@ public class Sistema {
 			String estrategiaFavorita) throws Exception {
 
 		// Validacion DNI tiene que ser 8 digitos
-		String stringDni = String.valueOf(dni);
-
-		if (stringDni.length() > 8 || stringDni.length() < 8) {
-			throw new Exception("El DNI tiene que tener 8 digitos.");
-		}
+		validarDni(dni);
 
 		// Busqueda si existe el entrenador en la BD
 		int contador = 0;
@@ -217,7 +213,7 @@ public class Sistema {
 	// BAJA ENTRENADOR
 	public boolean eliminarEntrenadorPorDni(long dni) throws Exception {
 
-		boolean validoDni = validarDni(dni); // Valida pero nunca se usa en el metodo
+		validarDni(dni); // Valida SNI
 
 		int contador = 0;
 		Entrenador entrenadorAEliminar = null;
@@ -241,7 +237,7 @@ public class Sistema {
 	public boolean modificarEntrenador(long dni, String nombre, String apellido,
 			LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
 
-		boolean validoDni = validarDni(dni);
+		validarDni(dni);
 
 		int contador = 0;
 		Entrenador entrenadorEncontrado = null;
@@ -266,7 +262,7 @@ public class Sistema {
 
 	// Búsqueda de entrenadores: Crear un método que, dada una táctica preferida,
 	// devuelva una lista de todos los entrenadores que la utilicen.
-	public List<Entrenador> buscarEntrendaor(String estrategia) {
+	public List<Entrenador> buscarEntrenador(String estrategia) {
 
 		List<Entrenador> entrenadoresFiltrados = new ArrayList<Entrenador>();
 

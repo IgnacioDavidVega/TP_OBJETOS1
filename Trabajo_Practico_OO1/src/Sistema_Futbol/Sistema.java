@@ -273,4 +273,81 @@ public class Sistema {
 		}
 		return entrenadoresFiltrados;
 	}
+	
+	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es mayor de edad, tira excepción.
+	public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura, float peso, String posicion, int dorsal) throws Exception{
+		validarDni(dni);
+		
+		if (traerJugador(dni) != null) {
+		    throw new Exception("El DNI ingresado ya está en uso.");
+		}
+
+		if (!comprobarMayorEdad(fechaNacimiento)) {
+		    throw new Exception("El jugador debe ser mayor de edad.");
+		}
+		
+		int id = 1;
+		
+		if (listaJugador.size() > 0) {
+			id = listaJugador.get(listaJugador.size()-1).getId() + 1;
+		}
+		
+		return listaJugador.add(new Jugador(id, nombre, apellido, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
+	};
+	
+	// Trae jugador por DNI.
+	public Jugador traerJugador(long dni) {
+		Jugador retornoJugador = null;
+		
+		int i = 0;
+		
+		while (i<listaJugador.size() && retornoJugador == null) {
+			if (listaJugador.get(i).getDni() == dni) {
+				retornoJugador = listaJugador.get(i);
+			}
+			i++;
+		}
+		
+		return retornoJugador;
+	};
+	
+	// Modificación de jugador. Puede modificar todo menos DNI e ID.
+	public boolean modificarJugador (long dni, String nombre, String apellido, long nuevoDni, float estatura, float peso, String posicion, int dorsal) throws Exception{
+		Jugador jugadorModificado = traerJugador(dni);
+		
+		if (jugadorModificado == null) {
+			throw new Exception ("El jugador no existe");
+		}
+		
+		validarDni(nuevoDni);
+		
+		jugadorModificado.setNombre(nombre);
+		jugadorModificado.setApellido(apellido);
+		jugadorModificado.setDni(nuevoDni);
+		jugadorModificado.setEstatura(estatura);
+		jugadorModificado.setPeso(peso);
+		jugadorModificado.setPosicion(posicion);
+		jugadorModificado.setDorsal(dorsal);
+		
+		return true;
+	}
+	
+	// Elimina jugador por DNI.
+	public boolean eliminarJugador(long dni) {
+		return listaJugador.remove(traerJugador(dni));
+	};
+	
+	// Búsqueda de jugadores por fecha de nacimiento: 
+	//Implementar una método que retorne una lista de jugadores nacidos entre dos fechas dadas.
+	public List<Jugador> traerJugadores(LocalDate fechaPrimera, LocalDate fechaSegunda) {
+		List<Jugador> retornoJugadores = new ArrayList<Jugador>();
+		
+		for (Jugador j : listaJugador) {
+			if (!(j.getFechaNacimiento().isBefore(fechaPrimera) || j.getFechaNacimiento().isAfter(fechaSegunda))) {
+				retornoJugadores.add(j);
+			}
+		}
+		
+		return retornoJugadores;
+	};
 }

@@ -332,7 +332,8 @@ public class Sistema {
 		return true;
 	}
 	
-	// Elimina jugador por DNI.
+	// Elimina jugador por Jugador (consultar si es mejor directamente traer el DNI o el traerJugador(dni) + si debe tirar excepcion 
+	// si no está el jugador que se busca eliminar o es suficiente con el null).
 	public boolean eliminarJugador(Jugador jugador) {
 		return listaJugador.remove(jugador);
 	};

@@ -312,18 +312,18 @@ public class Sistema {
 	};
 	
 	// Modificación de jugador. Puede modificar todo menos DNI e ID.
-	public boolean modificarJugador (long dni, String nombre, String apellido, long nuevoDni, float estatura, float peso, String posicion, int dorsal) throws Exception{
-		Jugador jugadorModificado = traerJugador(dni);
+	public boolean modificarJugador (Jugador jugador, String nombre, String apellido, long dni, float estatura, float peso, String posicion, int dorsal) throws Exception{
+		Jugador jugadorModificado = jugador;
 		
 		if (jugadorModificado == null) {
 			throw new Exception ("El jugador no existe");
 		}
 		
-		validarDni(nuevoDni);
+		validarDni(dni);
 		
 		jugadorModificado.setNombre(nombre);
 		jugadorModificado.setApellido(apellido);
-		jugadorModificado.setDni(nuevoDni);
+		jugadorModificado.setDni(dni);
 		jugadorModificado.setEstatura(estatura);
 		jugadorModificado.setPeso(peso);
 		jugadorModificado.setPosicion(posicion);
@@ -333,8 +333,8 @@ public class Sistema {
 	}
 	
 	// Elimina jugador por DNI.
-	public boolean eliminarJugador(long dni) {
-		return listaJugador.remove(traerJugador(dni));
+	public boolean eliminarJugador(Jugador jugador) {
+		return listaJugador.remove(jugador);
 	};
 	
 	// Búsqueda de jugadores por fecha de nacimiento: 

@@ -311,15 +311,23 @@ public class Sistema {
 		return retornoJugador;
 	};
 	
-	// Modificación de jugador. Puede modificar todo menos DNI e ID.
-	public boolean modificarJugador (Jugador jugador, String nombre, String apellido, long dni, float estatura, float peso, String posicion, int dorsal) throws Exception{
-		Jugador jugadorModificado = jugador;
+	// Modificación de jugador. Puede modificar todo menos ID.
+	public boolean modificarJugador (long dniOriginal, String nombre, String apellido, long dni, float estatura, float peso, String posicion, int dorsal) throws Exception{
+		Jugador jugadorModificado = traerJugador(dniOriginal);
 		
+		// Compruebo que sea un DNI válido.
+		validarDni(dni);
+		
+		// Compruebo que el DNI no está siendo ocupado por otra persona.
+		if (traerJugador(dni) != null) {
+			throw new Exception ("El DNI ya está en uso");
+		}
+		
+		// Compruebo que el jugador existe
 		if (jugadorModificado == null) {
 			throw new Exception ("El jugador no existe");
 		}
 		
-		validarDni(dni);
 		
 		jugadorModificado.setNombre(nombre);
 		jugadorModificado.setApellido(apellido);
@@ -332,11 +340,24 @@ public class Sistema {
 		return true;
 	}
 	
-	// Elimina jugador por Jugador (consultar si es mejor directamente traer el DNI o el traerJugador(dni) + si debe tirar excepcion 
-	// si no está el jugador que se busca eliminar o es suficiente con el null).
-	public boolean eliminarJugador(Jugador jugador) {
-		return listaJugador.remove(jugador);
+	// Elimina jugador por DNI. Si no existe el jugador, lanza excepción.
+	//(consultar si es mejor directamente traer el DNI o el traerJugador(dni) + si debe tirar excepcion si no está el jugador que se busca eliminar o es suficiente con el null).
+	public boolean eliminarJugador(long dni) throws Exception{
+		Jugador eliminarJugador = traerJugador(dni);
+		
+		if (eliminarJugador == null) {
+			throw new Exception ("El jugador no existe.");
+		}
+		
+		return listaJugador.remove(eliminarJugador);
 	};
+	
+	
+	/*
+	 * 	public boolean eliminarJugador(Jugador jugador) {
+			return listaJugador.remove(jugador);
+	};
+	 */
 	
 	// Búsqueda de jugadores por fecha de nacimiento: 
 	//Implementar una método que retorne una lista de jugadores nacidos entre dos fechas dadas.
@@ -344,7 +365,8 @@ public class Sistema {
 		List<Jugador> retornoJugadores = new ArrayList<Jugador>();
 		
 		for (Jugador j : listaJugador) {
-			if (!(j.getFechaNacimiento().isBefore(fechaPrimera) || j.getFechaNacimiento().isAfter(fechaSegunda))) {
+			if ((j.getFechaNacimiento().isEqual(fechaPrimera) || j.getFechaNacimiento().isAfter(fechaPrimera)) &&
+			   (j.getFechaNacimiento().isEqual(fechaSegunda) || j.getFechaNacimiento().isBefore(fechaSegunda))) {
 				retornoJugadores.add(j);
 			}
 		}

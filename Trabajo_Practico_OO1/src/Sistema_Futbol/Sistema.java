@@ -45,8 +45,6 @@ public class Sistema {
 		this.listaRegistro.add(registro);
 	}
 
-	//
-
 	public void removeEquipo(Equipo equipo) {
 		this.listaEquipos.remove(equipo);
 	}
@@ -71,60 +69,36 @@ public class Sistema {
 		this.listaRegistro.remove(registro);
 	}
 
-	//
-
 	public List<Equipo> getListaEquipos() {
 		return listaEquipos;
-	}
-
-	public void setListaEquipos(List<Equipo> listaEquipos) {
-		this.listaEquipos = listaEquipos;
 	}
 
 	public List<Entrenador> getListaEntrenador() {
 		return listaEntrenador;
 	}
 
-	public void setListaEntrenador(List<Entrenador> listaEntrenador) {
-		this.listaEntrenador = listaEntrenador;
-	}
-
 	public List<Jugador> getListaJugador() {
 		return listaJugador;
-	}
-
-	public void setListaJugador(List<Jugador> listaJugador) {
-		this.listaJugador = listaJugador;
 	}
 
 	public List<Torneo> getListaTorneo() {
 		return listaTorneo;
 	}
 
-	public void setListaTorneo(List<Torneo> listaTorneo) {
-		this.listaTorneo = listaTorneo;
-	}
-
 	public List<Partido> getListaPartido() {
 		return listaPartido;
-	}
-
-	public void setListaPartido(List<Partido> listaPartido) {
-		this.listaPartido = listaPartido;
 	}
 
 	public List<Registro> getListaRegistro() {
 		return listaRegistro;
 	}
 
-	public void setListaRegistro(List<Registro> listaRegistro) {
-		this.listaRegistro = listaRegistro;
-	}
-
 	// Metodos
 
-	// UTILIDAD VALIDAR DNI DIGITOS
-
+	// UTILIDADES
+	//
+	//
+	// VALIDACION DE DNI SOLO POR DIGITOS
 	public boolean validarDni(long dni) throws Exception {
 
 		// Validacion DNI tiene que ser 8 digitos
@@ -137,26 +111,26 @@ public class Sistema {
 		return true;
 	}
 
-	//UTILIDAD COMPROBAR MAYOR DE EDAD
-
-	public boolean comprobarMayorEdad (LocalDate fechaNacimiento){
+	// COMPROBAR MAYOR DE EDAD
+	public boolean comprobarMayorEdad(LocalDate fechaNacimiento) {
 
 		boolean mayorEdad;
-		
+
 		LocalDate fechaActual = LocalDate.now();
 		LocalDate calculoMayorEdad = fechaNacimiento.plusYears(18);
-		
-		if (calculoMayorEdad.isBefore(fechaActual)){
+
+		if (calculoMayorEdad.isBefore(fechaActual)) {
 			mayorEdad = true;
-		}else{
+		} else {
 			mayorEdad = false;
 		}
 
 		return mayorEdad;
 	}
 
-
 	// ENTRENADORES
+	//
+	//
 	// ALTA ENTRENADOR
 	public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
 			String estrategiaFavorita) throws Exception {
@@ -234,6 +208,8 @@ public class Sistema {
 		return true;
 	}
 
+	// MODIFICAR ENTRENDADOR: SE PASA POR PARAMETRO EL DNI; SOLO SE MODIFICA NOMBRE,
+	// APELLIDO Y ESTRATEGIA FAVORITA.
 	public boolean modificarEntrenador(long dni, String nombre, String apellido,
 			LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
 
@@ -260,7 +236,7 @@ public class Sistema {
 		return true;
 	}
 
-	// Búsqueda de entrenadores: Crear un método que, dada una táctica preferida,
+	// BUSQUEDA DE ENTRENADOR: Crear un método que, dada una táctica preferida,
 	// devuelva una lista de todos los entrenadores que la utilicen.
 	public List<Entrenador> buscarEntrenador(String estrategia) {
 
@@ -273,4 +249,88 @@ public class Sistema {
 		}
 		return entrenadoresFiltrados;
 	}
+
+	// ABM JUGADORES
+	//
+	//
+	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
+	// mayor de edad, tira excepción.
+	public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura,
+			float peso, String posicion, int dorsal) throws Exception {
+		validarDni(dni);
+
+		if (traerJugador(dni) != null) {
+			throw new Exception("El DNI ingresado ya está en uso.");
+		}
+
+		if (!comprobarMayorEdad(fechaNacimiento)) {
+			throw new Exception("El jugador debe ser mayor de edad.");
+		}
+
+		int id = 1;
+
+		if (listaJugador.size() > 0) {
+			id = listaJugador.get(listaJugador.size() - 1).getId() + 1;
+		}
+
+		return listaJugador
+				.add(new Jugador(id, nombre, apellido, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
+	};
+
+	// Trae jugador por DNI.
+	public Jugador traerJugador(long dni) {
+		Jugador retornoJugador = null;
+
+		int i = 0;
+
+		while (i < listaJugador.size() && retornoJugador == null) {
+			if (listaJugador.get(i).getDni() == dni) {
+				retornoJugador = listaJugador.get(i);
+			}
+			i++;
+		}
+
+		return retornoJugador;
+	};
+
+	// Modificación de jugador. Puede modificar todo menos DNI e ID.
+	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura,
+			float peso, String posicion, int dorsal) throws Exception {
+		Jugador jugadorModificado = jugador;
+
+		if (jugadorModificado == null) {
+			throw new Exception("El jugador no existe");
+		}
+
+		validarDni(jugador.getDni());
+
+		jugadorModificado.setNombre(nombre);
+		jugadorModificado.setApellido(apellido);
+		jugadorModificado.setEstatura(estatura);
+		jugadorModificado.setPeso(peso);
+		jugadorModificado.setPosicion(posicion);
+		jugadorModificado.setDorsal(dorsal);
+
+		return true;
+	}
+
+	// Elimina jugador por objeto
+	public boolean eliminarJugador(Jugador jugador) {
+		return listaJugador.remove(jugador);
+	};
+
+	// Búsqueda de jugadores por fecha de nacimiento:
+	// Implementar una método que retorne una lista de jugadores nacidos entre dos
+	// fechas dadas.
+	public List<Jugador> traerJugadores(LocalDate fechaPrimera, LocalDate fechaSegunda) {
+		List<Jugador> retornoJugadores = new ArrayList<Jugador>();
+
+		for (Jugador j : listaJugador) {
+			if (!(j.getFechaNacimiento().isBefore(fechaPrimera) || j.getFechaNacimiento().isAfter(fechaSegunda))) {
+				retornoJugadores.add(j);
+			}
+		}
+
+		return retornoJugadores;
+	};
 }

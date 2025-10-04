@@ -315,17 +315,18 @@ public class Sistema {
 	public boolean modificarJugador (long dniOriginal, String nombre, String apellido, long dni, float estatura, float peso, String posicion, int dorsal) throws Exception{
 		Jugador jugadorModificado = traerJugador(dniOriginal);
 		
+		// Compruebo que el jugador existe
+		if (jugadorModificado == null) {
+			throw new Exception ("El jugador no existe");
+		}
+		
 		// Compruebo que sea un DNI válido.
 		validarDni(dni);
 		
 		// Compruebo que el DNI no está siendo ocupado por otra persona.
-		if (traerJugador(dni) != null) {
-			throw new Exception ("El DNI ya está en uso");
-		}
-		
-		// Compruebo que el jugador existe
-		if (jugadorModificado == null) {
-			throw new Exception ("El jugador no existe");
+		Jugador existente = traerJugador(dni);
+		if (existente != null && !existente.equals(jugadorModificado)){
+		    throw new Exception("El DNI ya está en uso");
 		}
 		
 		
@@ -340,7 +341,7 @@ public class Sistema {
 		return true;
 	}
 	
-	// Elimina jugador por DNI. Si no existe el jugador, lanza excepción.
+	// Elimina jugador por DNI. Si no existe el jugador, lanza excepción. 
 	//(consultar si es mejor directamente traer el DNI o el traerJugador(dni) + si debe tirar excepcion si no está el jugador que se busca eliminar o es suficiente con el null).
 	public boolean eliminarJugador(long dni) throws Exception{
 		Jugador eliminarJugador = traerJugador(dni);
@@ -352,12 +353,6 @@ public class Sistema {
 		return listaJugador.remove(eliminarJugador);
 	};
 	
-	
-	/*
-	 * 	public boolean eliminarJugador(Jugador jugador) {
-			return listaJugador.remove(jugador);
-	};
-	 */
 	
 	// Búsqueda de jugadores por fecha de nacimiento: 
 	//Implementar una método que retorne una lista de jugadores nacidos entre dos fechas dadas.

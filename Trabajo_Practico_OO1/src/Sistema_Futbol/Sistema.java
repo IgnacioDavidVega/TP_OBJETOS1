@@ -11,6 +11,7 @@ public class Sistema {
 	private List<Torneo> listaTorneo;
 	private List<Partido> listaPartido;
 	private List<Registro> listaRegistro;
+	private List<Estadio> listaEstadio;
 
 	public Sistema() {
 		this.listaEquipos = new ArrayList<Equipo>();
@@ -19,6 +20,7 @@ public class Sistema {
 		this.listaTorneo = new ArrayList<Torneo>();
 		this.listaPartido = new ArrayList<Partido>();
 		this.listaRegistro = new ArrayList<Registro>();
+		this.listaEstadio = new ArrayList<Estadio>();
 	}
 
 	public void addEquipo(Equipo equipo) {
@@ -91,6 +93,10 @@ public class Sistema {
 
 	public List<Registro> getListaRegistro() {
 		return listaRegistro;
+	}
+
+	public List<Estadio> getListaEstadio() {
+		return listaEstadio;
 	}
 
 	// Metodos
@@ -320,4 +326,92 @@ public class Sistema {
 
 		return retornoJugadores;
 	};
+
+	// ESTADIO
+	//
+	//
+	// ALTA DE ESTADIO
+	public boolean agregarEstadio(String nombre, String ubicacion) throws Exception {
+
+		boolean nombreIgualEstadio = false;
+
+		for (Estadio estadio : getListaEstadio()) {
+			if (estadio.getNombre().equalsIgnoreCase(nombre)) {
+				nombreIgualEstadio = true;
+			}
+		}
+
+		if (nombreIgualEstadio) {
+			throw new Exception("El nombre " + nombre
+					+ " que ingreso para el Estadio ya tiene el mismo nombre en la BD. Reintente ingresando otro nombre.");
+		}
+
+		int id = 1;
+
+		if (getListaEstadio().size() > 0) {
+			id = listaEstadio.get(listaEstadio.size() - 1).getId() + 1;
+		}
+
+		return getListaEstadio().add(new Estadio(id, nombre, ubicacion));
+	}
+
+	// TRAER ESTADIO
+	public Estadio traerEstadio(int id) throws Exception {
+
+		if (id <= 0) {
+			throw new Exception("El ID no puede ser 0 o negativo.");
+		}
+
+		Estadio estadioTraer = null;
+
+		int contador = 0;
+
+		while (contador < getListaEstadio().size() && estadioTraer == null) {
+			if (getListaEstadio().get(contador).getId() == id) {
+				estadioTraer = getListaEstadio().get(contador);
+			}
+			contador++;
+		}
+
+		return estadioTraer;
+	}
+
+	// MODIFICAR ESTADIO
+	public boolean modificarEstadio(int id, String nombre, String ubicacion) throws Exception {
+
+		if (id <= 0) {
+			throw new Exception("El ID no puede ser 0 o negativo.");
+		}
+
+		Estadio estadioAModificar = traerEstadio(id);
+
+		if (estadioAModificar == null) {
+			throw new Exception("El ID que ingreso no existe en la BD.");
+		}
+
+		if (estadioAModificar.getNombre().equalsIgnoreCase(nombre)) {
+			throw new Exception(
+					"El nombre que ingreso para modificar es el mismo que esta en la BD. Ingrese un nombre del estadio diferente para modificarlo.");
+		} else {
+			estadioAModificar.setNombre(nombre);
+			estadioAModificar.setUbicacion(ubicacion);
+		}
+
+		return true;
+	}
+
+	// Traer estadios por ubicacion
+
+	public List<Estadio> listaEstadiosPorUbicacion(String ubicacion) {
+
+		List<Estadio> listadoFiltrado = new ArrayList<Estadio>();
+
+		for (Estadio estadio : getListaEstadio()) {
+			if (estadio.getUbicacion().equalsIgnoreCase(ubicacion)) {
+				listadoFiltrado.add(estadio);
+			}
+		}
+
+		return listadoFiltrado;
+	}
 }

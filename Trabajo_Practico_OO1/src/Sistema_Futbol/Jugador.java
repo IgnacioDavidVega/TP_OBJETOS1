@@ -2,30 +2,20 @@
 
 package Sistema_Futbol;
 
-// Importaciones de librerias
 import java.time.LocalDate;
 
 // Clase Jugador
-public class Jugador {
-
-    private int id;
-    private String nombre;
-    private String apellido;
-    private long dni;
-    private LocalDate fechaNacimiento;
+public class Jugador extends Persona {
     private float estatura;
     private float peso;
     private String posicion;
     private int dorsal;
 
     // Constructor de la clase Jugador
-    public Jugador(int id, String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura,
-            float peso, String posicion, int dorsal) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.fechaNacimiento = fechaNacimiento;
+
+    public Jugador(int id, String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
+            float estatura, float peso, String posicion, int dorsal) {
+        super(id, nombre, apellido, edad, dni, fechaNacimiento);
         this.estatura = estatura;
         this.peso = peso;
         this.posicion = posicion;
@@ -33,46 +23,6 @@ public class Jugador {
     }
 
     // Implementacion de Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public long getDni() {
-        return dni;
-    }
-
-    public void setDni(long dni) {
-        this.dni = dni;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
     public float getEstatura() {
         return estatura;
     }
@@ -108,8 +58,10 @@ public class Jugador {
     // To string
     @Override
     public String toString() {
-        return "\n Jugador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+        return "\nJugador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", dni="
+                + dni
                 + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + ", peso=" + peso + ", posicion="
-                + posicion + ", dorsal=" + dorsal + "]";
+                + posicion
+                + ", dorsal=" + dorsal + "]";
     }
 }

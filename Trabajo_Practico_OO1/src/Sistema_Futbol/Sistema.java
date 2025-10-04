@@ -111,28 +111,11 @@ public class Sistema {
 		return true;
 	}
 
-	// COMPROBAR MAYOR DE EDAD
-	public boolean comprobarMayorEdad(LocalDate fechaNacimiento) {
-
-		boolean mayorEdad;
-
-		LocalDate fechaActual = LocalDate.now();
-		LocalDate calculoMayorEdad = fechaNacimiento.plusYears(18);
-
-		if (calculoMayorEdad.isBefore(fechaActual)) {
-			mayorEdad = true;
-		} else {
-			mayorEdad = false;
-		}
-
-		return mayorEdad;
-	}
-
 	// ENTRENADORES
 	//
 	//
 	// ALTA ENTRENADOR
-	public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
+	public boolean agregarEntrenador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
 			String estrategiaFavorita) throws Exception {
 
 		// Validacion DNI tiene que ser 8 digitos
@@ -151,7 +134,7 @@ public class Sistema {
 
 		if (existeEntrenador == false) {
 			listaEntrenador.add(
-					new Entrenador(listaEntrenador.size() + 1, nombre, apellido, dni, fechaNacimiento,
+					new Entrenador(listaEntrenador.size() + 1, nombre, apellido, edad, dni, fechaNacimiento,
 							estrategiaFavorita));
 		} else {
 			throw new Exception("El entrenador con DNI " + dni + " ya existe en la BD.");
@@ -255,7 +238,8 @@ public class Sistema {
 	//
 	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
 	// mayor de edad, tira excepción.
-	public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura,
+	public boolean agregarJugador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
+			float estatura,
 			float peso, String posicion, int dorsal) throws Exception {
 		validarDni(dni);
 
@@ -263,7 +247,10 @@ public class Sistema {
 			throw new Exception("El DNI ingresado ya está en uso.");
 		}
 
-		if (!comprobarMayorEdad(fechaNacimiento)) {
+		// Crear un objeto temporal para verificar mayoría de edad ya que el metodo esta
+		// en la clase Persona
+		Persona personaTemp = new Persona(0, "", "", 0, 0, fechaNacimiento);
+		if (personaTemp.comprobarMayorEdad(fechaNacimiento) == false) {
 			throw new Exception("El jugador debe ser mayor de edad.");
 		}
 
@@ -274,7 +261,7 @@ public class Sistema {
 		}
 
 		return listaJugador
-				.add(new Jugador(id, nombre, apellido, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
+				.add(new Jugador(id, nombre, apellido, edad, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
 	};
 
 	// Trae jugador por DNI.

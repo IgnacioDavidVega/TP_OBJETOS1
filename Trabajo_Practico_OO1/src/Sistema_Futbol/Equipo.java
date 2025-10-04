@@ -18,9 +18,9 @@ public class Equipo {
     private List<Jugador> listaJugadores;
     private Estadio estadio;
 
-    
-    //Implementacion del constructor
-    public Equipo(int id, String nombre, String codUnico, LocalDate fechaFundacion, Entrenador entrenador, Estadio estadio) {
+    // Implementacion del constructor
+    public Equipo(int id, String nombre, String codUnico, LocalDate fechaFundacion, Entrenador entrenador,
+            Estadio estadio) {
         this.id = id;
         this.nombre = nombre;
         this.codUnico = codUnico;
@@ -85,5 +85,31 @@ public class Equipo {
 
     public void setEstadio(Estadio estadio) {
         this.estadio = estadio;
+    }
+
+    // To String
+    @Override
+    public String toString() {
+        return "\nEquipo [id=" + id + ", nombre=" + nombre + ", codUnico=" + codUnico + ", fechaFundacion="
+                + fechaFundacion + ", entrenador=" + entrenador + ", listaJugadores=" + listaJugadores + ", estadio="
+                + estadio + "]";
+    }
+
+    // Hash y equals solo para codUnico
+    @Override
+    public int hashCode() {
+        return codUnico.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Equipo other = (Equipo) obj;
+        return codUnico.equals(other.codUnico);
     }
 }

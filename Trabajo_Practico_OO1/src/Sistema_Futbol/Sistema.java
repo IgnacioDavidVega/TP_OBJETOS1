@@ -400,6 +400,25 @@ public class Sistema {
 		return true;
 	}
 
+	// BAJA DE ESTADIO
+
+	public boolean eliminarEstadio(int id) throws Exception {
+
+		if (id <= 0) {
+			throw new Exception("El ID no puede ser 0 o negativo.");
+		}
+
+		Estadio estadioAEliminar = traerEstadio(id);
+
+		if (estadioAEliminar == null) {
+			throw new Exception("El ID " + id + " que ingreso no existe en la BD.");
+		} else {
+			getListaEstadio().remove(estadioAEliminar);
+		}
+
+		return true;
+	}
+
 	// Traer estadios por ubicacion
 
 	public List<Estadio> listaEstadiosPorUbicacion(String ubicacion) {

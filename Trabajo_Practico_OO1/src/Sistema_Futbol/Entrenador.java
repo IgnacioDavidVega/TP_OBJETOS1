@@ -24,7 +24,7 @@ public class Entrenador extends Persona {
 	// To String
 	@Override
 	public String toString() {
-		return "Entrenador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+		return "\nEntrenador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
 				+ ", fechaNacimiento=" + fechaNacimiento + ", estrategiaFavorita=" + estrategiaFavorita + "]";
 	}
 }

@@ -2,14 +2,12 @@
 
 package Sistema_Futbol;
 
-
 // Importaciones de librerias
 import java.time.LocalDate;
 
-
 // Clase Jugador
 public class Jugador {
-    
+
     private int id;
     private String nombre;
     private String apellido;
@@ -21,7 +19,8 @@ public class Jugador {
     private int dorsal;
 
     // Constructor de la clase Jugador
-    public Jugador(int id, String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura, float peso, String posicion, int dorsal) {
+    public Jugador(int id, String nombre, String apellido, long dni, LocalDate fechaNacimiento, float estatura,
+            float peso, String posicion, int dorsal) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -104,5 +103,13 @@ public class Jugador {
 
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
+    }
+
+    // To string
+    @Override
+    public String toString() {
+        return "\n Jugador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+                + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + ", peso=" + peso + ", posicion="
+                + posicion + ", dorsal=" + dorsal + "]";
     }
 }

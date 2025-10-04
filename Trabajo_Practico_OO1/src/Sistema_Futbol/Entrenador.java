@@ -1,8 +1,6 @@
 package Sistema_Futbol;
 
 import java.time.LocalDate;
-//import java.util.ArrayList; No creo que sea necesario en la clase entrenador
-//import java.util.List; No creo que sea necesario en la clase entrenador
 
 public class Entrenador {
 	private int id;
@@ -83,24 +81,16 @@ public class Entrenador {
 	// Hash and equals
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+		return Long.hashCode(dni);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Entrenador))
 			return false;
 		Entrenador other = (Entrenador) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return this.dni == other.dni;
 	}
-
 }

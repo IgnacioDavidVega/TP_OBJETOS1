@@ -112,4 +112,22 @@ public class Jugador {
                 + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + ", peso=" + peso + ", posicion="
                 + posicion + ", dorsal=" + dorsal + "]";
     }
+
+    // Hash y equals solo para dni
+    @Override
+    public int hashCode() {
+        return Long.hashCode(dni);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Jugador other = (Jugador) obj;
+        return dni == other.dni;
+    }
 }

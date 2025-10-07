@@ -283,7 +283,7 @@ public class Sistema {
 	// Modificación de jugador. Puede modificar todo menos DNI e ID.
 	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura,
 			float peso, String posicion, int dorsal) throws Exception {
-		Jugador jugadorModificado = jugador;
+		Jugador jugadorModificado = traerJugador(jugador.getDni());
 
 		if (jugadorModificado == null) {
 			throw new Exception("El jugador no existe");
@@ -319,5 +319,74 @@ public class Sistema {
 		}
 
 		return retornoJugadores;
-	};
-}
+	}
+	
+	// Agrega el registro y en caso de que exista ese registro (lo comprueba mediante el jugador y partido), lanza una excepción.
+	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido, Jugador jugador) throws Exception {
+		Registro registroAgregar = new Registro(0, cantidadGoles, cantidadAsistencias, minutosJugados, partido, jugador);
+		
+		if (existeRegistro(registroAgregar)) {
+			throw new Exception("Ya hay un registro con el mismo partido y jugador");
+		}
+		
+		int id = 1;
+		if (listaRegistro.size() > 0) {
+			id = listaRegistro.get(listaRegistro.size() - 1).getIdRegistro() + 1;
+		}
+		registroAgregar.setIdRegistro(id);
+		
+		return listaRegistro.add(registroAgregar);
+	}
+
+	// Trae el registro en base al jugador y partido. Si no existe, devuelve null.
+	public Registro traerRegistro(Jugador jugador, Partido partido) {
+		Registro retornoRegistro = null;
+		
+		int i = 0;
+		
+		while (i < listaRegistro.size() && retornoRegistro == null) {
+			if (listaRegistro.get(i).getJugador().equals(jugador) && listaRegistro.get(i).getPartido().equals(partido)) {
+				retornoRegistro = listaRegistro.get(i);
+			}
+			i++;
+		}
+		
+		return retornoRegistro;
+	}
+	
+	// Comprobamos si el registro existe: se bas acompletamente en si un registro tiene el mismo jugador y mismo partido, cosa que no debería suceder porque no juega más de 1 partido por día.
+	public boolean existeRegistro(Registro registro) {
+		boolean registroExiste = false;
+		
+		int i = 0;
+		 
+		 while (i < listaRegistro.size() && registroExiste == false) {
+			 if (listaRegistro.get(i).equals(registro)) {
+				 registroExiste = true;
+			 }
+			 i++;
+		 }
+		 
+		 return registroExiste;
+	}
+	
+	// Modifica el registro menos la id, el jugador al que pertenece y el partido que jugó. Si el registro no existe, lanza una excepción.
+	public boolean modificarRegistro(Registro registro, int cantidadGoles, int cantidadAsistencias, int minutosJugados) throws Exception{
+		if (!existeRegistro(registro)) {
+			throw new Exception("El registro no existe");
+		}
+		
+		Registro registroModificado = traerRegistro(registro.getJugador(), registro.getPartido());
+		
+		registroModificado.setCantidadGoles(cantidadGoles);
+		registroModificado.setCantidadAsistencias(cantidadAsistencias);
+		registroModificado.setMinutosJugados(minutosJugados);
+		
+		return true;
+	}
+	
+	// Elimina el jugador de lista recibiendo el registro.
+	public boolean eliminarRegistro(Registro registro) {
+		return listaRegistro.remove(registro);
+	}
+};

@@ -94,15 +94,8 @@ public class Partido {
 		return Integer.hashCode(idPartido);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Partido other = (Partido) obj;
-		return idPartido == other.idPartido;
+	
+	public boolean equals(Partido partido) {
+		return partido.getFechaPartido().isEqual(this.fechaPartido);
 	}
 }

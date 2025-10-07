@@ -3,6 +3,7 @@
 package Sistema_Futbol;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 // Clase Jugador
 public class Jugador extends Persona {
@@ -64,4 +65,11 @@ public class Jugador extends Persona {
                 + posicion
                 + ", dorsal=" + dorsal + "]";
     }
+
+
+	public boolean equals(Jugador jugador) {
+		return jugador.getDni() == this.dni;
+	}
+    
+    
 }

@@ -83,15 +83,7 @@ public class Registro {
 		return Integer.hashCode(idRegistro);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Registro other = (Registro) obj;
-		return idRegistro == other.idRegistro;
+	public boolean equals(Registro registro) {
+		return (registro.getJugador().equals(this.jugador) && registro.getPartido().equals(this.partido));
 	}
 }

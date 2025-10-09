@@ -101,17 +101,7 @@ public class Persona {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Persona other = (Persona) obj;
-        if (dni != other.dni)
-            return false;
-        return true;
+    public boolean equals(Persona persona) {
+        return persona.getDni() == dni;
     }
 }

@@ -64,4 +64,9 @@ public class Jugador extends Persona {
                 + posicion
                 + ", dorsal=" + dorsal + "]";
     }
+
+    public boolean equals(Jugador jugador) {
+        return jugador.getDni() == this.dni;
+    }
+
 }

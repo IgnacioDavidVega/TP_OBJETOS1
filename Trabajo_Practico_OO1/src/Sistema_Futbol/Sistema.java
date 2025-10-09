@@ -273,6 +273,7 @@ public class Sistema {
 		return retornoJugadores;
 	}
 
+	// ABM REGISTRO
 	// Agrega el registro y en caso de que exista ese registro (lo comprueba
 	// mediante el jugador y partido), lanza una excepción.
 	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido,
@@ -310,7 +311,7 @@ public class Sistema {
 		return retornoRegistro;
 	}
 
-	// Comprobamos si el registro existe: se bas acompletamente en si un registro
+	// Comprobamos si el registro existe: se basa completamente en si un registro
 	// tiene el mismo jugador y mismo partido, cosa que no debería suceder porque no
 	// juega más de 1 partido por día.
 	public boolean existeRegistro(Registro registro) {

@@ -21,54 +21,6 @@ public class Sistema {
 		this.listaRegistro = new ArrayList<Registro>();
 	}
 
-	public void addEquipo(Equipo equipo) {
-		this.listaEquipos.add(equipo);
-	}
-
-	public void addEntrenador(Entrenador entrenador) {
-		this.listaEntrenador.add(entrenador);
-	}
-
-	public void addJugador(Jugador jugador) {
-		this.listaJugador.add(jugador);
-	}
-
-	public void addTorneo(Torneo torneo) {
-		this.listaTorneo.add(torneo);
-	}
-
-	public void addPartido(Partido partido) {
-		this.listaPartido.add(partido);
-	}
-
-	public void addRegistro(Registro registro) {
-		this.listaRegistro.add(registro);
-	}
-
-	public void removeEquipo(Equipo equipo) {
-		this.listaEquipos.remove(equipo);
-	}
-
-	public void removeEntrenador(Entrenador entrenador) {
-		this.listaEntrenador.remove(entrenador);
-	}
-
-	public void removeJugador(Jugador jugador) {
-		this.listaJugador.remove(jugador);
-	}
-
-	public void removeTorneo(Torneo torneo) {
-		this.listaTorneo.remove(torneo);
-	}
-
-	public void removePartido(Partido partido) {
-		this.listaPartido.remove(partido);
-	}
-
-	public void removeRegistro(Registro registro) {
-		this.listaRegistro.remove(registro);
-	}
-
 	public List<Equipo> getListaEquipos() {
 		return listaEquipos;
 	}

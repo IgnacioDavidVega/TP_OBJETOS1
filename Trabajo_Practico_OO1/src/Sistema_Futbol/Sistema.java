@@ -51,11 +51,9 @@ public class Sistema {
 		return listaEstadio;
 	}
 
-	// Metodos
-
+	// -------------------------------------------------------------------------------------------------------------
 	// UTILIDADES
-	//
-	//
+
 	// VALIDACION DE DNI SOLO POR DIGITOS
 	public boolean validarDni(long dni) throws Exception {
 
@@ -69,9 +67,9 @@ public class Sistema {
 		return true;
 	}
 
+	// -------------------------------------------------------------------------------------------------------------
 	// CRUD ENTRENADOR
-	//
-	//
+
 	// ALTA ENTRENADOR
 	public boolean agregarEntrenador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
 			String estrategiaFavorita) throws Exception {
@@ -191,9 +189,9 @@ public class Sistema {
 		return entrenadoresFiltrados;
 	}
 
+	// -------------------------------------------------------------------------------------------------------------
 	// CRUD JUGADORES
-	//
-	//
+
 	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
 	// mayor de edad, tira excepción.
 	public boolean agregarJugador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
@@ -279,6 +277,7 @@ public class Sistema {
 		return retornoJugadores;
 	}
 
+	// -------------------------------------------------------------------------------------------------------------
 	// CRUD REGISTRO
 	// Agrega el registro y en caso de que exista ese registro (lo comprueba
 	// mediante el jugador y partido), lanza una excepción.
@@ -358,7 +357,7 @@ public class Sistema {
 	}
 
 	//
-	//
+	// -------------------------------------------------------------------------------------------------------------
 	// CRUD EQUIPO
 
 	// TRAER EQUIPO
@@ -485,6 +484,21 @@ public class Sistema {
 		return equiposFiltrados;
 	}
 
+	// Metodo para calculo de altura promedio de un equipo dado
+
+	public float calcularAlturaPromedioEquipo(Equipo equipo) {
+
+		float resultado = 0;
+		int cantidadJugadores = equipo.getListaJugadores().size();
+
+		for (int i = 0; i < equipo.getListaJugadores().size(); i++) {
+			resultado = (resultado + equipo.getListaJugadores().get(i).getEstatura());
+		}
+
+		return (resultado / cantidadJugadores);
+	}
+
+	// -------------------------------------------------------------------------------------------------------------
 	// CRUD ESTADIO
 
 	// Traer Estadio
@@ -550,4 +564,6 @@ public class Sistema {
 	public boolean eliminarEstadio(Estadio estadio) {
 		return listaEstadio.remove(estadio);
 	}
+
+	// -------------------------------------------------------------------------------------------------------------
 };

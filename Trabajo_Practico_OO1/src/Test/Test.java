@@ -27,7 +27,7 @@ public class Test {
         try {
             sistema.agregarJugador("Ignacio", "Vega", 25, 42366713, LocalDate.of(2000, 1, 11), 1.70f, 55, "Delantero",
                     10);
-            sistema.agregarJugador("Ricardo", "Villalobos", 25, 43092082, LocalDate.of(2000, 12, 26), 1.70f, 86,
+            sistema.agregarJugador("Ricardo", "Villalobos", 25, 43092082, LocalDate.of(2000, 12, 26), 2.36f, 86,
                     "Delantero",
                     11);
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class Test {
         // TEST AGREGAR JUGADOR AL EQUIPO
         try {
             sistema.agregarJugadorAlEquipo(sistema.traerEquipo(1), sistema.traerJugador(42366713));
-            sistema.agregarJugadorAlEquipo(sistema.traerEquipo(2), sistema.traerJugador(43092082));
+            sistema.agregarJugadorAlEquipo(sistema.traerEquipo(1), sistema.traerJugador(43092082));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -65,9 +65,10 @@ public class Test {
 
         // TEST BAJA DE JUGADOR DEL EQUIPO (ELIMINACION LOGICA)
         try {
-            sistema.bajaJugadorDelEquipo(sistema.traerEquipo(1), sistema.traerJugador(42366713));
+        sistema.bajaJugadorDelEquipo(sistema.traerEquipo(1),
+        sistema.traerJugador(42366713));
         } catch (Exception e) {
-            System.out.println(e);
+        System.out.println(e);
         }
 
         System.out.println("\n" + sistema.getListaEquipos());
@@ -79,5 +80,10 @@ public class Test {
         // TEST DE BUSQUEDA POR FECHA DE FUNDACION DE EQUIPOS
         System.out.println("TEST DE BUSQUEDA POR FECHA DE FUNDACION DE EQUIPOS");
         System.out.println(sistema.busquedaEquipoPorFundacion(LocalDate.of(1903, 1, 1), LocalDate.of(1904, 2, 22)));
+
+        // TEST CALCULO PROMEDIO ALTURA DE UN EQUIPO DADO
+        System.out.println("TEST CALCULO PROMEDIO ALTURA DE UN EQUIPO DADO");
+        System.out.println("Altura promedio del equipo " + sistema.traerEquipo(1).getNombre()
+                + " = " + sistema.calcularAlturaPromedioEquipo(sistema.traerEquipo(1)) + " m");
     }
 }

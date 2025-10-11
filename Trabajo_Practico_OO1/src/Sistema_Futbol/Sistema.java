@@ -11,6 +11,7 @@ public class Sistema {
 	private List<Torneo> listaTorneo;
 	private List<Partido> listaPartido;
 	private List<Registro> listaRegistro;
+	private List<Estadio> listaEstadio;
 
 	public Sistema() {
 		this.listaEquipos = new ArrayList<Equipo>();
@@ -43,6 +44,10 @@ public class Sistema {
 
 	public List<Registro> getListaRegistro() {
 		return listaRegistro;
+	}
+
+	public List<Estadio> getListaEstadio() {
+		return listaEstadio;
 	}
 
 	// Metodos
@@ -349,5 +354,88 @@ public class Sistema {
 	// Elimina el jugador de lista recibiendo el registro.
 	public boolean eliminarRegistro(Registro registro) {
 		return listaRegistro.remove(registro);
+	}
+
+	//
+	//
+	// ABM EQUIPO
+
+	// TRAER EQUIPO
+
+	public Equipo traerEquipo(int id) {
+		Equipo equipoEncontrado = null;
+		int contador = 0;
+
+		while (equipoEncontrado == null && contador < getListaEquipos().size()) {
+			if (getListaEquipos().get(contador).getId() == id) {
+				equipoEncontrado = getListaEquipos().get(contador);
+			}
+			contador++;
+		}
+
+		return equipoEncontrado;
+	}
+
+	// ALTA EQUIPO
+
+	public boolean altaEquipo(String nombre, String codUnico, LocalDate fechaFundacion, Entrenador entrenador,
+			Estadio estadio) throws Exception {
+
+		// Buscamos si el nombre que se paso por parametro coincide con uno existente en
+		// la BD. De ser asi,
+		// lanza una excepcion.
+
+		boolean mismoNombre = false;
+		int contador = 0;
+
+		while (!mismoNombre && contador < getListaEquipos().size()) {
+			if (getListaEquipos().get(contador).getNombre().equals(nombre)) {
+				mismoNombre = true;
+			}
+			contador++;
+		}
+
+		if (mismoNombre) {
+			throw new Exception("El nombre " + nombre + " que ingreso ya existe en la BD.");
+		}
+
+		// Agregamos el equipo
+		int id = 1;
+
+		if (listaEquipos.size() > 0) {
+			id = listaEquipos.get(listaEquipos.size() - 1).getId() + 1;
+		}
+
+		return listaEquipos.add(new Equipo(id, nombre, codUnico, fechaFundacion, entrenador, estadio));
+	}
+
+	// BAJA DE EQUIPO
+
+	public boolean bajaEquipo(Equipo equipo) {
+		return listaEquipos.remove(equipo);
+	}
+
+	// MODIFICACION DE EQUIPO
+
+	public boolean modificarEquipo(int id, String nombre, String codUnico, LocalDate fechaFundacion,
+			Entrenador entrenador,
+			Estadio estadio) throws Exception {
+
+		Equipo equipoModificar = traerEquipo(id);
+
+		if (equipoModificar.getNombre().equals(nombre)) {
+			throw new Exception("El nombre " + nombre + " es el mismo.");
+		}
+
+		if (equipoModificar.getCodUnico().equals(codUnico)) {
+			throw new Exception("El codigo unico " + codUnico + " es el mismo.");
+		}
+
+		equipoModificar.setNombre(nombre);
+		equipoModificar.setCodUnico(codUnico);
+		equipoModificar.setFechaFundacion(fechaFundacion);
+		equipoModificar.setEntrenador(entrenador);
+
+		return true;
 	}
 };

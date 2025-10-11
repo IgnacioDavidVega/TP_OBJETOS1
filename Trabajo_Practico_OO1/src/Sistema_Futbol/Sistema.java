@@ -69,7 +69,7 @@ public class Sistema {
 		return true;
 	}
 
-	// ENTRENADORES
+	// CRUD ENTRENADOR
 	//
 	//
 	// ALTA ENTRENADOR
@@ -191,7 +191,7 @@ public class Sistema {
 		return entrenadoresFiltrados;
 	}
 
-	// ABM JUGADORES
+	// CRUD JUGADORES
 	//
 	//
 	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
@@ -279,7 +279,7 @@ public class Sistema {
 		return retornoJugadores;
 	}
 
-	// ABM REGISTRO
+	// CRUD REGISTRO
 	// Agrega el registro y en caso de que exista ese registro (lo comprueba
 	// mediante el jugador y partido), lanza una excepción.
 	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido,
@@ -359,7 +359,7 @@ public class Sistema {
 
 	//
 	//
-	// ABM EQUIPO
+	// CRUD EQUIPO
 
 	// TRAER EQUIPO
 
@@ -463,7 +463,29 @@ public class Sistema {
 		return equipo.getListaJugadores().add(jugador);
 	}
 
-	// CLASE ESTADIO
+	// Baja de jugador del equipo
+
+	public boolean bajaJugadorDelEquipo(Equipo equipo, Jugador jugador) {
+		return equipo.getListaJugadores().remove(jugador);
+	}
+
+	// Metodo para Búsqueda de equipos por fecha de fundación
+
+	public List<Equipo> busquedaEquipoPorFundacion(LocalDate desde, LocalDate hasta) {
+
+		List<Equipo> equiposFiltrados = new ArrayList<Equipo>();
+
+		for (Equipo equipo : getListaEquipos()) {
+			if ((equipo.getFechaFundacion().isAfter(desde) || equipo.getFechaFundacion().isEqual(desde))
+					&& (equipo.getFechaFundacion().isBefore(hasta) || equipo.getFechaFundacion().isEqual(hasta))) {
+				equiposFiltrados.add(equipo);
+			}
+		}
+
+		return equiposFiltrados;
+	}
+
+	// CRUD ESTADIO
 
 	// Traer Estadio
 

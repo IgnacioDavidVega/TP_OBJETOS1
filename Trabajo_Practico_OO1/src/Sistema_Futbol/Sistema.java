@@ -71,8 +71,7 @@ public class Sistema {
 	// CRUD ENTRENADOR
 
 	// ALTA ENTRENADOR
-	public boolean agregarEntrenador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
-			String estrategiaFavorita) throws Exception {
+	public boolean agregarEntrenador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
 
 		// Validacion DNI tiene que ser 8 digitos
 		validarDni(dni);
@@ -95,8 +94,7 @@ public class Sistema {
 		
 		if (existeEntrenador == false) {
 			listaEntrenador.add(
-					new Entrenador(id, nombre, apellido, edad, dni, fechaNacimiento,
-							estrategiaFavorita));
+					new Entrenador(id, nombre, apellido, edad, dni, fechaNacimiento, estrategiaFavorita));
 		} else {
 			throw new Exception("El entrenador con DNI " + dni + " ya existe en la BD.");
 		}
@@ -131,7 +129,7 @@ public class Sistema {
 	// BAJA ENTRENADOR
 	public boolean eliminarEntrenadorPorDni(long dni) throws Exception {
 
-		validarDni(dni); // Valida SNI
+		validarDni(dni); // Valida DNI
 
 		int contador = 0;
 		Entrenador entrenadorAEliminar = null;
@@ -154,8 +152,7 @@ public class Sistema {
 
 	// MODIFICAR ENTRENDADOR: SE PASA POR PARAMETRO EL DNI; SOLO SE MODIFICA NOMBRE,
 	// APELLIDO Y ESTRATEGIA FAVORITA.
-	public boolean modificarEntrenador(long dni, String nombre, String apellido,
-			LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
+	public boolean modificarEntrenador(long dni, String nombre, String apellido, LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
 
 		validarDni(dni);
 
@@ -199,9 +196,7 @@ public class Sistema {
 
 	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
 	// mayor de edad, tira excepción.
-	public boolean agregarJugador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
-			float estatura,
-			float peso, String posicion, int dorsal) throws Exception {
+	public boolean agregarJugador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento, float estatura, float peso, String posicion, int dorsal) throws Exception {
 		validarDni(dni);
 
 		if (traerJugador(dni) != null) {
@@ -221,8 +216,7 @@ public class Sistema {
 			id = listaJugador.get(listaJugador.size() - 1).getId() + 1;
 		}
 
-		return listaJugador
-				.add(new Jugador(id, nombre, apellido, edad, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
+		return listaJugador.add(new Jugador(id, nombre, apellido, edad, dni, fechaNacimiento, estatura, peso, posicion, dorsal));
 	};
 
 	// Trae jugador por DNI.
@@ -242,8 +236,7 @@ public class Sistema {
 	};
 
 	// Modificación de jugador. Puede modificar todo menos DNI e ID.
-	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura,
-			float peso, String posicion, int dorsal) throws Exception {
+	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura, float peso, String posicion, int dorsal) throws Exception {
 		Jugador jugadorModificado = traerJugador(jugador.getDni());
 
 		if (jugadorModificado == null) {
@@ -286,10 +279,8 @@ public class Sistema {
 	// CRUD REGISTRO
 	// Agrega el registro y en caso de que exista ese registro (lo comprueba
 	// mediante el jugador y partido), lanza una excepción.
-	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido,
-			Jugador jugador) throws Exception {
-		Registro registroAgregar = new Registro(0, cantidadGoles, cantidadAsistencias, minutosJugados, partido,
-				jugador);
+	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido, Jugador jugador) throws Exception {
+		Registro registroAgregar = new Registro(0, cantidadGoles, cantidadAsistencias, minutosJugados, partido, jugador);
 
 		if (existeRegistro(registroAgregar)) {
 			throw new Exception("Ya hay un registro con el mismo partido y jugador");
@@ -311,8 +302,7 @@ public class Sistema {
 		int i = 0;
 
 		while (i < listaRegistro.size() && retornoRegistro == null) {
-			if (listaRegistro.get(i).getJugador().equals(jugador)
-					&& listaRegistro.get(i).getPartido().equals(partido)) {
+			if (listaRegistro.get(i).getJugador().equals(jugador) && listaRegistro.get(i).getPartido().equals(partido)) {
 				retornoRegistro = listaRegistro.get(i);
 			}
 			i++;
@@ -341,8 +331,7 @@ public class Sistema {
 
 	// Modifica el registro menos la id, el jugador al que pertenece y el partido
 	// que jugó. Si el registro no existe, lanza una excepción.
-	public boolean modificarRegistro(Registro registro, int cantidadGoles, int cantidadAsistencias, int minutosJugados)
-			throws Exception {
+	public boolean modificarRegistro(Registro registro, int cantidadGoles, int cantidadAsistencias, int minutosJugados) throws Exception {
 		if (!existeRegistro(registro)) {
 			throw new Exception("El registro no existe");
 		}
@@ -480,8 +469,7 @@ public class Sistema {
 		List<Equipo> equiposFiltrados = new ArrayList<Equipo>();
 
 		for (Equipo equipo : getListaEquipos()) {
-			if ((equipo.getFechaFundacion().isAfter(desde) || equipo.getFechaFundacion().isEqual(desde))
-					&& (equipo.getFechaFundacion().isBefore(hasta) || equipo.getFechaFundacion().isEqual(hasta))) {
+			if ((equipo.getFechaFundacion().isAfter(desde) || equipo.getFechaFundacion().isEqual(desde)) && (equipo.getFechaFundacion().isBefore(hasta) || equipo.getFechaFundacion().isEqual(hasta))) {
 				equiposFiltrados.add(equipo);
 			}
 		}

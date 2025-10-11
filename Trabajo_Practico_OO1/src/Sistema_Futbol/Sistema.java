@@ -449,8 +449,7 @@ public class Sistema {
 		}
 
 		if (mismoJugador) {
-			throw new Exception("El jugador con DNI " + jugador.dni + " ya existe en la lista de Jugadores del equipo "
-					+ equipo.getNombre());
+			throw new Exception("El jugador con DNI " + jugador.getDni() + " ya existe en la lista de Jugadores del equipo." + equipo.getNombre());
 		}
 
 		return equipo.getListaJugadores().add(jugador);

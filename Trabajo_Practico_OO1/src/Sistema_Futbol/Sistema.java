@@ -11,6 +11,7 @@ public class Sistema {
 	private List<Torneo> listaTorneo;
 	private List<Partido> listaPartido;
 	private List<Registro> listaRegistro;
+	private List<Estadio> listaEstadio;
 
 	public Sistema() {
 		this.listaEquipos = new ArrayList<Equipo>();
@@ -19,6 +20,7 @@ public class Sistema {
 		this.listaTorneo = new ArrayList<Torneo>();
 		this.listaPartido = new ArrayList<Partido>();
 		this.listaRegistro = new ArrayList<Registro>();
+		this.listaEstadio = new ArrayList<Estadio>();
 	}
 
 	public List<Equipo> getListaEquipos() {
@@ -45,11 +47,13 @@ public class Sistema {
 		return listaRegistro;
 	}
 
-	// Metodos
+	public List<Estadio> getListaEstadio() {
+		return listaEstadio;
+	}
 
+	// -------------------------------------------------------------------------------------------------------------
 	// UTILIDADES
-	//
-	//
+
 	// VALIDACION DE DNI SOLO POR DIGITOS
 	public boolean validarDni(long dni) throws Exception {
 
@@ -63,9 +67,9 @@ public class Sistema {
 		return true;
 	}
 
-	// ENTRENADORES
-	//
-	//
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD ENTRENADOR
+
 	// ALTA ENTRENADOR
 	public boolean agregarEntrenador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
 			String estrategiaFavorita) throws Exception {
@@ -84,10 +88,14 @@ public class Sistema {
 			contador++;
 		}
 
+		int id = 1;
+		if (listaEntrenador.size() > 0) {
+			id = listaEntrenador.get(listaEntrenador.size() - 1).getId() + 1;
+		}
+
 		if (existeEntrenador == false) {
 			listaEntrenador.add(
-					new Entrenador(listaEntrenador.size() + 1, nombre, apellido, edad, dni, fechaNacimiento,
-							estrategiaFavorita));
+					new Entrenador(id, nombre, apellido, edad, dni, fechaNacimiento, estrategiaFavorita));
 		} else {
 			throw new Exception("El entrenador con DNI " + dni + " ya existe en la BD.");
 		}
@@ -122,7 +130,7 @@ public class Sistema {
 	// BAJA ENTRENADOR
 	public boolean eliminarEntrenadorPorDni(long dni) throws Exception {
 
-		validarDni(dni); // Valida SNI
+		validarDni(dni); // Valida DNI
 
 		int contador = 0;
 		Entrenador entrenadorAEliminar = null;
@@ -145,8 +153,8 @@ public class Sistema {
 
 	// MODIFICAR ENTRENDADOR: SE PASA POR PARAMETRO EL DNI; SOLO SE MODIFICA NOMBRE,
 	// APELLIDO Y ESTRATEGIA FAVORITA.
-	public boolean modificarEntrenador(long dni, String nombre, String apellido,
-			LocalDate fechaNacimiento, String estrategiaFavorita) throws Exception {
+	public boolean modificarEntrenador(long dni, String nombre, String apellido, LocalDate fechaNacimiento,
+			String estrategiaFavorita) throws Exception {
 
 		validarDni(dni);
 
@@ -185,14 +193,13 @@ public class Sistema {
 		return entrenadoresFiltrados;
 	}
 
-	// ABM JUGADORES
-	//
-	//
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD JUGADORES
+
 	// Agrega jugadores. Si el DNI no es válido o ya está ocupado o el jugador no es
 	// mayor de edad, tira excepción.
 	public boolean agregarJugador(String nombre, String apellido, int edad, long dni, LocalDate fechaNacimiento,
-			float estatura,
-			float peso, String posicion, int dorsal) throws Exception {
+			float estatura, float peso, String posicion, int dorsal) throws Exception {
 		validarDni(dni);
 
 		if (traerJugador(dni) != null) {
@@ -233,8 +240,8 @@ public class Sistema {
 	};
 
 	// Modificación de jugador. Puede modificar todo menos DNI e ID.
-	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura,
-			float peso, String posicion, int dorsal) throws Exception {
+	public boolean modificarJugador(Jugador jugador, String nombre, String apellido, float estatura, float peso,
+			String posicion, int dorsal) throws Exception {
 		Jugador jugadorModificado = traerJugador(jugador.getDni());
 
 		if (jugadorModificado == null) {
@@ -273,7 +280,8 @@ public class Sistema {
 		return retornoJugadores;
 	}
 
-	// ABM REGISTRO
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD REGISTRO
 	// Agrega el registro y en caso de que exista ese registro (lo comprueba
 	// mediante el jugador y partido), lanza una excepción.
 	public boolean agregarRegistro(int cantidadGoles, int cantidadAsistencias, int minutosJugados, Partido partido,
@@ -350,4 +358,219 @@ public class Sistema {
 	public boolean eliminarRegistro(Registro registro) {
 		return listaRegistro.remove(registro);
 	}
+
+	//
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD EQUIPO
+
+	// TRAER EQUIPO
+
+	public Equipo traerEquipo(int id) {
+		Equipo equipoEncontrado = null;
+		int contador = 0;
+
+		while (equipoEncontrado == null && contador < getListaEquipos().size()) {
+			if (getListaEquipos().get(contador).getId() == id) {
+				equipoEncontrado = getListaEquipos().get(contador);
+			}
+			contador++;
+		}
+
+		return equipoEncontrado;
+	}
+
+	// ALTA EQUIPO
+
+	public boolean altaEquipo(String nombre, String codUnico, LocalDate fechaFundacion, Entrenador entrenador,
+			Estadio estadio) throws Exception {
+
+		// Buscamos si el nombre que se paso por parametro coincide con uno existente en
+		// la BD. De ser asi,
+		// lanza una excepcion.
+
+		boolean mismoNombre = false;
+		int contador = 0;
+
+		while (!mismoNombre && contador < getListaEquipos().size()) {
+			if (getListaEquipos().get(contador).getNombre().equals(nombre)) {
+				mismoNombre = true;
+			}
+			contador++;
+		}
+
+		if (mismoNombre) {
+			throw new Exception("El nombre " + nombre + " que ingreso ya existe en la BD.");
+		}
+
+		// Agregamos el equipo
+		int id = 1;
+
+		if (listaEquipos.size() > 0) {
+			id = listaEquipos.get(listaEquipos.size() - 1).getId() + 1;
+		}
+
+		return listaEquipos.add(new Equipo(id, nombre, codUnico, fechaFundacion, entrenador, estadio));
+	}
+
+	// BAJA DE EQUIPO
+
+	public boolean bajaEquipo(Equipo equipo) {
+		return listaEquipos.remove(equipo);
+	}
+
+	// MODIFICACION DE EQUIPO
+
+	public boolean modificarEquipo(int id, String nombre, String codUnico, LocalDate fechaFundacion,
+			Entrenador entrenador,
+			Estadio estadio) throws Exception {
+
+		Equipo equipoModificar = traerEquipo(id);
+
+		if (equipoModificar.getNombre().equals(nombre)) {
+			throw new Exception("El nombre " + nombre + " es el mismo.");
+		}
+
+		if (equipoModificar.getCodUnico().equals(codUnico)) {
+			throw new Exception("El codigo unico " + codUnico + " es el mismo.");
+		}
+
+		equipoModificar.setNombre(nombre);
+		equipoModificar.setCodUnico(codUnico);
+		equipoModificar.setFechaFundacion(fechaFundacion);
+		equipoModificar.setEntrenador(entrenador);
+
+		return true;
+	}
+
+	// Agregar jugador al equipo
+
+	public boolean agregarJugadorAlEquipo(Equipo equipo, Jugador jugador) throws Exception {
+
+		// Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
+		boolean mismoJugador = false;
+		int contador = 0;
+
+		while (contador < equipo.getListaJugadores().size() && !mismoJugador) {
+			if (equipo.getListaJugadores().get(contador).getDni() == jugador.getDni()) {
+				mismoJugador = true;
+			}
+			contador++;
+		}
+
+		if (mismoJugador) {
+			throw new Exception("El jugador con DNI " + jugador.getDni()
+					+ " ya existe en la lista de Jugadores del equipo " + equipo.getNombre());
+		}
+
+		return equipo.getListaJugadores().add(jugador);
+	}
+
+	// Baja de jugador del equipo
+
+	public boolean bajaJugadorDelEquipo(Equipo equipo, Jugador jugador) {
+		return equipo.getListaJugadores().remove(jugador);
+	}
+
+	// Metodo para Búsqueda de equipos por fecha de fundación
+
+	public List<Equipo> busquedaEquipoPorFundacion(LocalDate desde, LocalDate hasta) {
+
+		List<Equipo> equiposFiltrados = new ArrayList<Equipo>();
+
+		for (Equipo equipo : getListaEquipos()) {
+			if ((equipo.getFechaFundacion().isAfter(desde) || equipo.getFechaFundacion().isEqual(desde))
+					&& (equipo.getFechaFundacion().isBefore(hasta) || equipo.getFechaFundacion().isEqual(hasta))) {
+				equiposFiltrados.add(equipo);
+			}
+		}
+
+		return equiposFiltrados;
+	}
+
+	// Metodo para calculo de altura promedio de un equipo dado
+
+	public float calcularAlturaPromedioEquipo(Equipo equipo) throws Exception {
+
+		float resultado = 0;
+		int cantidadJugadores = equipo.getListaJugadores().size();
+
+		if (equipo.getListaJugadores().size() == 0) {
+			throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
+		}
+
+		for (int i = 0; i < equipo.getListaJugadores().size(); i++) {
+			resultado = (resultado + equipo.getListaJugadores().get(i).getEstatura());
+		}
+
+		return (resultado / cantidadJugadores);
+	}
+
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD ESTADIO
+
+	// Traer Estadio
+
+	public Estadio traerEstadio(int id) {
+		Estadio estadio = null;
+		int contador = 0;
+
+		while (contador < getListaEstadio().size() && estadio == null) {
+			if (listaEstadio.get(contador).getId() == id) {
+				estadio = listaEstadio.get(contador);
+			}
+			contador++;
+		}
+
+		return estadio;
+	}
+
+	// Alta Estadio
+
+	public boolean altaEstadio(String nombre, String ubicacion) throws Exception {
+
+		boolean mismoNombreEstadio = false;
+		int contador = 0;
+
+		while (contador < getListaEstadio().size() && !mismoNombreEstadio) {
+			if (listaEstadio.get(contador).getNombre().equalsIgnoreCase(nombre)) {
+				mismoNombreEstadio = true;
+			}
+			contador++;
+		}
+
+		if (mismoNombreEstadio) {
+			throw new Exception("El nombre " + nombre + " que ingreso ya existe como Estadio.");
+		}
+
+		// Agregamos el estadio
+		int id = 1;
+
+		if (listaEstadio.size() > 0) {
+			id = listaEstadio.get(listaEstadio.size() - 1).getId() + 1;
+		}
+
+		return listaEstadio.add(new Estadio(id, nombre, ubicacion));
+	}
+
+	// Modificacion de Estadio
+
+	public boolean modificarEstadio(Estadio estadio, String nombre, String ubicacion) throws Exception {
+
+		if (estadio.getNombre().equalsIgnoreCase(nombre)) {
+			throw new Exception("El nombre del estadio es el mismo.");
+		}
+
+		estadio.setNombre(nombre);
+		estadio.setUbicacion(ubicacion);
+
+		return true;
+	}
+
+	// Baja de Estadio
+
+	public boolean eliminarEstadio(Estadio estadio) {
+		return listaEstadio.remove(estadio);
+	}
+
+	// -------------------------------------------------------------------------------------------------------------
 };

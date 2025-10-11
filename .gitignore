@@ -32,4 +32,4 @@ replay_pid*
 .vscode/
 
 #Ignore TestSistema.java file
-Trabajo_Practico_OO1/src/test/TestSistema.java
+Trabajo_Practico_OO1/src/test/Test.java

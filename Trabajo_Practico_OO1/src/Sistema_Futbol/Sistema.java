@@ -88,9 +88,14 @@ public class Sistema {
 			contador++;
 		}
 
+		int id = 1;
+		if (listaEntrenador.size() > 0){
+			id = listaEntrenador.get(listaEntrenador.size() - 1).getId() + 1;
+		}
+		
 		if (existeEntrenador == false) {
 			listaEntrenador.add(
-					new Entrenador(listaEntrenador.size() + 1, nombre, apellido, edad, dni, fechaNacimiento,
+					new Entrenador(id, nombre, apellido, edad, dni, fechaNacimiento,
 							estrategiaFavorita));
 		} else {
 			throw new Exception("El entrenador con DNI " + dni + " ya existe en la BD.");
@@ -448,7 +453,7 @@ public class Sistema {
 		int contador = 0;
 
 		while (contador < equipo.getListaJugadores().size() && !mismoJugador) {
-			if (equipo.getListaJugadores().get(contador).getDni() == jugador.dni) {
+			if (equipo.getListaJugadores().get(contador).getDni() == jugador.getDni()) {
 				mismoJugador = true;
 			}
 			contador++;

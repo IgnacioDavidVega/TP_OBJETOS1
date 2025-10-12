@@ -1,7 +1,6 @@
 package Sistema_Futbol;
 
 public class Registro {
-
 	private int idRegistro;
 	private int cantidadGoles;
 	private int cantidadAsistencias;
@@ -80,10 +79,23 @@ public class Registro {
 	// Hash y equals solo para idRegistro
 	@Override
 	public int hashCode() {
-		return Integer.hashCode(idRegistro);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idRegistro;
+		return result;
 	}
 
-	public boolean equals(Registro registro) {
-		return (registro.getJugador().equals(this.jugador) && registro.getPartido().equals(this.partido));
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Registro other = (Registro) obj;
+		if (idRegistro != other.idRegistro)
+			return false;
+		return true;
 	}
 }

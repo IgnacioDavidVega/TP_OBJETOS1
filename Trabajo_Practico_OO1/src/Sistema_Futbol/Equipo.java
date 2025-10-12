@@ -9,7 +9,6 @@ import java.util.List;
 
 // Clase Equipo
 public class Equipo {
-
     private int id;
     private String nombre;
     private String codUnico;
@@ -95,60 +94,79 @@ public class Equipo {
                 + estadio + "]";
     }
 
-    // Hash y equals solo para codUnico
+    // Equals and Hash
+
     @Override
     public int hashCode() {
-        return codUnico.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codUnico == null) ? 0 : codUnico.hashCode());
+        return result;
     }
 
-    public boolean equals(Equipo equipo) {
-        return equipo.getCodUnico().equals(this.codUnico);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Equipo other = (Equipo) obj;
+        if (codUnico == null) {
+            if (other.codUnico != null)
+                return false;
+        } else if (!codUnico.equals(other.codUnico))
+            return false;
+        return true;
     }
-    
-	// Metodo para calculo de altura promedio de un equipo dado
 
-	public float calcularAlturaPromedioEquipo() throws Exception {
+    // ---------------------------------------- METODOS CLASE EQUIPO --
 
-		float resultado = 0;
-		int cantidadJugadores = getListaJugadores().size();
+    // Metodo para calculo de altura promedio de un equipo dado
 
-		if (getListaJugadores().size() == 0) {
-			throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
-		}
+    public float calcularAlturaPromedioEquipo() throws Exception {
 
-		for (int i = 0; i < getListaJugadores().size(); i++) {
-			resultado = (resultado + getListaJugadores().get(i).getEstatura());
-		}
+        float resultado = 0;
+        int cantidadJugadores = getListaJugadores().size();
 
-		return (resultado / cantidadJugadores);
-	}
-	
-	// Baja de jugador del equipo
+        if (getListaJugadores().size() == 0) {
+            throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
+        }
 
-	public boolean bajaJugadorDelEquipo(Jugador jugador) {
-		return getListaJugadores().remove(jugador);
-	}
-	
-	// Agregar jugador al equipo
+        for (int i = 0; i < getListaJugadores().size(); i++) {
+            resultado = (resultado + getListaJugadores().get(i).getEstatura());
+        }
 
-	public boolean agregarJugadorAlEquipo(Jugador jugador) throws Exception {
+        return (resultado / cantidadJugadores);
+    }
 
-		// Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
-		boolean mismoJugador = false;
-		int contador = 0;
+    // Baja de jugador del equipo
 
-		while (contador < getListaJugadores().size() && !mismoJugador) {
-			if (getListaJugadores().get(contador).getDni() == jugador.getDni()) {
-				mismoJugador = true;
-			}
-			contador++;
-		}
+    public boolean bajaJugadorDelEquipo(Jugador jugador) {
+        return getListaJugadores().remove(jugador);
+    }
 
-		if (mismoJugador) {
-			throw new Exception("El jugador con DNI " + jugador.getDni()
-					+ " ya existe en la lista de Jugadores del equipo " + getNombre());
-		}
+    // Agregar jugador al equipo
 
-		return getListaJugadores().add(jugador);
-	}
+    public boolean agregarJugadorAlEquipo(Jugador jugador) throws Exception {
+
+        // Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
+        boolean mismoJugador = false;
+        int contador = 0;
+
+        while (contador < getListaJugadores().size() && !mismoJugador) {
+            if (getListaJugadores().get(contador).getDni() == jugador.getDni()) {
+                mismoJugador = true;
+            }
+            contador++;
+        }
+
+        if (mismoJugador) {
+            throw new Exception("El jugador con DNI " + jugador.getDni()
+                    + " ya existe en la lista de Jugadores del equipo " + getNombre());
+        }
+
+        return getListaJugadores().add(jugador);
+    }
 }

@@ -11,9 +11,7 @@ Lic. Oscar Ruina
 ## Integrantes:
 
 Avila Brian,
-Martinez Matias Leonel,
-Scarfo Martin Pablo,
 Vega Ignacio David
 
 ## Objetivo:
-El complejo de canchas de fútbol La Redonda está planeando organizar campeonatos de fútbol, para ello necesitan un sistema que permita su gestión.  
+El complejo de canchas de fútbol La Redonda está planeando organizar campeonatos de fútbol, para ello necesitan un sistema que permita su gestión.

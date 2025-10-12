@@ -101,15 +101,7 @@ public class Equipo {
         return codUnico.hashCode();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Equipo other = (Equipo) obj;
-        return codUnico.equals(other.codUnico);
+    public boolean equals(Equipo equipo) {
+        return equipo.getCodUnico().equals(this.codUnico);
     }
 }

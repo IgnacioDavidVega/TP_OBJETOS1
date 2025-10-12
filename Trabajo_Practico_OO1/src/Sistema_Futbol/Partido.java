@@ -7,21 +7,16 @@ public class Partido {
 
 	private int idPartido;
 	private LocalDate fechaPartido;
-	private LocalTime horarioPartido;
 	private Equipo equipoLocal;
 	private Equipo equipoVisitante;
 	private Estadio estadio;
-	private Torneo torneo;
 
-	public Partido(int idPartido, LocalDate fechaPartido, LocalTime horarioPartido, Equipo equipoLocal,
-			Equipo equipoVisitante, Estadio estadio, Torneo torneo) {
+	public Partido(int idPartido, LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio) {
 		this.idPartido = idPartido;
 		this.fechaPartido = fechaPartido;
-		this.horarioPartido = horarioPartido;
 		this.equipoLocal = equipoLocal;
 		this.equipoVisitante = equipoVisitante;
 		this.estadio = estadio;
-		this.torneo = torneo;
 	}
 
 	public int getIdPartido() {
@@ -38,14 +33,6 @@ public class Partido {
 
 	public void setFechaPartido(LocalDate fechaPartido) {
 		this.fechaPartido = fechaPartido;
-	}
-
-	public LocalTime getHorarioPartido() {
-		return horarioPartido;
-	}
-
-	public void setHorarioPartido(LocalTime horarioPartido) {
-		this.horarioPartido = horarioPartido;
 	}
 
 	public Equipo getEquipoLocal() {
@@ -72,20 +59,10 @@ public class Partido {
 		this.estadio = estadio;
 	}
 
-	public Torneo getTorneo() {
-		return torneo;
-	}
-
-	public void setTorneo(Torneo torneo) {
-		this.torneo = torneo;
-	}
-
-	// To String
 	@Override
 	public String toString() {
-		return "\nPartido [idPartido=" + idPartido + ", fechaPartido=" + fechaPartido + ", horarioPartido="
-				+ horarioPartido + ", equipoLocal=" + equipoLocal + ", equipoVisitante=" + equipoVisitante
-				+ ", estadio=" + estadio + ", torneo=" + torneo + "]";
+		return "Partido [idPartido=" + idPartido + ", fechaPartido=" + fechaPartido + ", equipoLocal=" + equipoLocal
+				+ ", equipoVisitante=" + equipoVisitante + ", estadio=" + estadio + "]";
 	}
 
 	// Hash y equals solo para idPartido
@@ -96,6 +73,7 @@ public class Partido {
 
 	
 	public boolean equals(Partido partido) {
-		return partido.getFechaPartido().isEqual(this.fechaPartido);
+		return (partido.getFechaPartido().isEqual(this.fechaPartido) &&
+				(partido.getEquipoLocal().equals(this.getEquipoLocal()) && partido.getEquipoVisitante().equals(this.equipoVisitante)));
 	}
 }

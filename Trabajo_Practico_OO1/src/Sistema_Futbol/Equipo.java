@@ -104,4 +104,51 @@ public class Equipo {
     public boolean equals(Equipo equipo) {
         return equipo.getCodUnico().equals(this.codUnico);
     }
+    
+	// Metodo para calculo de altura promedio de un equipo dado
+
+	public float calcularAlturaPromedioEquipo() throws Exception {
+
+		float resultado = 0;
+		int cantidadJugadores = getListaJugadores().size();
+
+		if (getListaJugadores().size() == 0) {
+			throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
+		}
+
+		for (int i = 0; i < getListaJugadores().size(); i++) {
+			resultado = (resultado + getListaJugadores().get(i).getEstatura());
+		}
+
+		return (resultado / cantidadJugadores);
+	}
+	
+	// Baja de jugador del equipo
+
+	public boolean bajaJugadorDelEquipo(Jugador jugador) {
+		return getListaJugadores().remove(jugador);
+	}
+	
+	// Agregar jugador al equipo
+
+	public boolean agregarJugadorAlEquipo(Jugador jugador) throws Exception {
+
+		// Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
+		boolean mismoJugador = false;
+		int contador = 0;
+
+		while (contador < getListaJugadores().size() && !mismoJugador) {
+			if (getListaJugadores().get(contador).getDni() == jugador.getDni()) {
+				mismoJugador = true;
+			}
+			contador++;
+		}
+
+		if (mismoJugador) {
+			throw new Exception("El jugador con DNI " + jugador.getDni()
+					+ " ya existe en la lista de Jugadores del equipo " + getNombre());
+		}
+
+		return getListaJugadores().add(jugador);
+	}
 }

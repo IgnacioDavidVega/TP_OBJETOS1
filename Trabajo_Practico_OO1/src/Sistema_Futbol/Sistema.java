@@ -443,35 +443,6 @@ public class Sistema {
 		return true;
 	}
 
-	// Agregar jugador al equipo
-
-	public boolean agregarJugadorAlEquipo(Equipo equipo, Jugador jugador) throws Exception {
-
-		// Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
-		boolean mismoJugador = false;
-		int contador = 0;
-
-		while (contador < equipo.getListaJugadores().size() && !mismoJugador) {
-			if (equipo.getListaJugadores().get(contador).getDni() == jugador.getDni()) {
-				mismoJugador = true;
-			}
-			contador++;
-		}
-
-		if (mismoJugador) {
-			throw new Exception("El jugador con DNI " + jugador.getDni()
-					+ " ya existe en la lista de Jugadores del equipo " + equipo.getNombre());
-		}
-
-		return equipo.getListaJugadores().add(jugador);
-	}
-
-	// Baja de jugador del equipo
-
-	public boolean bajaJugadorDelEquipo(Equipo equipo, Jugador jugador) {
-		return equipo.getListaJugadores().remove(jugador);
-	}
-
 	// Metodo para Búsqueda de equipos por fecha de fundación
 
 	public List<Equipo> busquedaEquipoPorFundacion(LocalDate desde, LocalDate hasta) {
@@ -486,24 +457,6 @@ public class Sistema {
 		}
 
 		return equiposFiltrados;
-	}
-
-	// Metodo para calculo de altura promedio de un equipo dado
-
-	public float calcularAlturaPromedioEquipo(Equipo equipo) throws Exception {
-
-		float resultado = 0;
-		int cantidadJugadores = equipo.getListaJugadores().size();
-
-		if (equipo.getListaJugadores().size() == 0) {
-			throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
-		}
-
-		for (int i = 0; i < equipo.getListaJugadores().size(); i++) {
-			resultado = (resultado + equipo.getListaJugadores().get(i).getEstatura());
-		}
-
-		return (resultado / cantidadJugadores);
 	}
 
 	// -------------------------------------------------------------------------------------------------------------

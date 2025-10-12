@@ -653,4 +653,51 @@ public class Sistema {
 	public boolean agregarPartidoTorneo(Torneo torneo, Partido partido) {
 		return torneo.getListaPartido().add(partido);
 	}
+
+	// Metodo para saber cual es el equipo con mayor promedio de altura de jugadores
+	// en un torneo especifico
+
+	public Equipo promedioAlturaMayorTorneo(Torneo torneo) throws Exception {
+
+		Equipo equipoMayorPromedioAltura = null;
+		float mayorPromedio = 0;
+
+		// Revisamos que haya un equipo aunque sea en el torneo en base al ID de Partido
+		if (torneo.getListaPartido().size() == 0) {
+			throw new Exception("No hay ningun equipo en este torneo.");
+		}
+
+		// Crear una lista para almacenar todos los equipos únicos del torneo
+		List<Equipo> equiposDelTorneo = new ArrayList<Equipo>();
+
+		// Recorro toda la lista de partidos del torneo para obtener todos los equipos
+		// únicos
+		for (int i = 0; i < torneo.getListaPartido().size(); i++) {
+			Equipo equipoLocal = torneo.getListaPartido().get(i).getEquipoLocal();
+			Equipo equipoVisitante = torneo.getListaPartido().get(i).getEquipoVisitante();
+
+			// Agregar equipo local si no está ya en la lista
+			if (!equiposDelTorneo.contains(equipoLocal)) {
+				equiposDelTorneo.add(equipoLocal);
+			}
+
+			// Agregar equipo visitante si no está ya en la lista
+			if (!equiposDelTorneo.contains(equipoVisitante)) {
+				equiposDelTorneo.add(equipoVisitante);
+			}
+		}
+
+		// Ahora comparar todos los equipos para encontrar el de mayor promedio de
+		// altura
+		for (Equipo equipo : equiposDelTorneo) {
+			float promedioActual = equipo.calcularAlturaPromedioEquipo();
+
+			if (promedioActual > mayorPromedio) {
+				equipoMayorPromedioAltura = equipo;
+				mayorPromedio = promedioActual;
+			}
+		}
+
+		return equipoMayorPromedioAltura;
+	}
 };

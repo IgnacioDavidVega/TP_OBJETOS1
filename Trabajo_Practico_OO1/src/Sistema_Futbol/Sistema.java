@@ -600,4 +600,58 @@ public class Sistema {
 	public boolean eliminarPartido(Partido partido) {
 		return listaPartido.remove(partido);
 	}
+
+	// -------------------------------------------------------------------------------------------------------------
+	// CRUD TORNEO
+
+	// Traer Torneo
+	public Torneo traerTorneo(int id) {
+		Torneo torneoEncontrado = null;
+		int contador = 0;
+
+		while (contador < getListaTorneo().size() && torneoEncontrado == null) {
+			if (getListaTorneo().get(contador).getId() == id) {
+				torneoEncontrado = getListaTorneo().get(contador);
+			}
+			contador++;
+		}
+
+		return torneoEncontrado;
+	}
+
+	// Alta de Torneo
+	public boolean altaTorneo(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin) {
+
+		int id = 1;
+
+		if (getListaTorneo().size() > 0) {
+			id = (getListaTorneo().get(getListaTorneo().size() - 1).getId() + 1);
+		}
+
+		return getListaTorneo().add(new Torneo(id, nombre, temporada, fechaInicio, fechaFin));
+	}
+
+	// Modificacion de Torneo
+	public boolean modificarTorneo(Torneo torneo, String nombre, String temporada, LocalDate fechaInicio,
+			LocalDate fechaFin) throws Exception {
+
+		Torneo torneoModificar = torneo;
+
+		// Manejo de excepciones
+		if (torneo.getNombre().equalsIgnoreCase(nombre)) {
+			throw new Exception("ERROR: El nombre del torneo a modificar es el mismo que en la BD.");
+		}
+
+		torneoModificar.setNombre(nombre);
+		torneoModificar.setTemporada(temporada);
+		torneoModificar.setFechaInicio(fechaInicio);
+		torneoModificar.setFechaFin(fechaFin);
+
+		return true;
+	}
+
+	// Agregar partidos a un torneo especifico
+	public boolean agregarPartidoTorneo(Torneo torneo, Partido partido) {
+		return torneo.getListaPartido().add(partido);
+	}
 };

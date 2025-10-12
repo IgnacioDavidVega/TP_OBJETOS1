@@ -2,7 +2,7 @@ package Sistema_Futbol;
 
 import java.time.LocalDate;
 
-public class Persona {
+public abstract class Persona {
     protected int id;
     protected String nombre;
     protected String apellido;

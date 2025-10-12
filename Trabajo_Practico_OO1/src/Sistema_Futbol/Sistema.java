@@ -208,8 +208,8 @@ public class Sistema {
 
 		// Crear un objeto temporal para verificar mayoría de edad ya que el metodo esta
 		// en la clase Persona
-		Persona personaTemp = new Persona(0, "", "", 0, 0, fechaNacimiento);
-		if (personaTemp.comprobarMayorEdad(fechaNacimiento) == false) {
+		Jugador JugadorTemp = new Jugador(0, null, null, edad, 0, fechaNacimiento, 0, 0, null, 0);
+		if (JugadorTemp.comprobarMayorEdad(fechaNacimiento) == false || (edad < 18)) {
 			throw new Exception("El jugador debe ser mayor de edad.");
 		}
 

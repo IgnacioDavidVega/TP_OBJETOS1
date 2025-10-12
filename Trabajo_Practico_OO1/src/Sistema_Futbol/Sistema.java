@@ -580,7 +580,7 @@ public class Sistema {
 		return true;
 	}
 
-	// Trae al jugador por la ID del partido
+	// Traer al partido por el ID
 	public Partido traerPartido(int idPartido) {
 		Partido retornoPartido = null;
 

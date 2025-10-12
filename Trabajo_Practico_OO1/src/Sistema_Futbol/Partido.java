@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Partido {
-
 	private int idPartido;
 	private LocalDate fechaPartido;
 	private Equipo equipoLocal;
@@ -68,12 +67,23 @@ public class Partido {
 	// Hash y equals solo para idPartido
 	@Override
 	public int hashCode() {
-		return Integer.hashCode(idPartido);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idPartido;
+		return result;
 	}
 
-	
-	public boolean equals(Partido partido) {
-		return (partido.getFechaPartido().isEqual(this.fechaPartido) &&
-				(partido.getEquipoLocal().equals(this.getEquipoLocal()) && partido.getEquipoVisitante().equals(this.equipoVisitante)));
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Partido other = (Partido) obj;
+		if (idPartido != other.idPartido)
+			return false;
+		return true;
 	}
 }

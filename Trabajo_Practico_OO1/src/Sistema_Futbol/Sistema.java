@@ -527,25 +527,27 @@ public class Sistema {
 	}
 
 	// -------------------------------------------------------------------------------------------------------------
-	// ABM PARTIDO
-	
+	// CRUD PARTIDO
+
 	// Agrega el partido
-	public boolean agregarPartido(LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio) throws Exception {
+	public boolean agregarPartido(LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio)
+			throws Exception {
 		Partido partidoAgregar = new Partido(1, fechaPartido, equipoLocal, equipoVisitante, estadio);
-		
+
 		if (existePartido(partidoAgregar)) {
 			throw new Exception("El partido ya existe.");
 		}
-		
+
 		if (listaPartido.size() > 0) {
 			int id = listaPartido.get(listaPartido.size() - 1).getIdPartido() + 1;
 			partidoAgregar.setIdPartido(id);
 		}
-		
+
 		return listaPartido.add(partidoAgregar);
 	}
-	
-	// Comprueba si el partido ya existe si tiene la misma fecha y son los mismos equipos los que la están jugando.
+
+	// Comprueba si el partido ya existe si tiene la misma fecha y son los mismos
+	// equipos los que la están jugando.
 	public boolean existePartido(Partido partido) {
 		boolean partidoExiste = false;
 
@@ -560,25 +562,26 @@ public class Sistema {
 
 		return partidoExiste;
 	}
-	
+
 	// Modifica el partido menos el idPartido
-	public boolean modificarPartido(Partido partido, LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio) throws Exception {
+	public boolean modificarPartido(Partido partido, LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante,
+			Estadio estadio) throws Exception {
 		Partido modificarPartido = traerPartido(partido.getIdPartido());
-		
+
 		if (!existePartido(modificarPartido)) {
 			throw new Exception("El partido no existe.");
 		}
-		
+
 		modificarPartido.setFechaPartido(fechaPartido);
 		modificarPartido.setEquipoLocal(equipoLocal);
 		modificarPartido.setEquipoVisitante(equipoVisitante);
 		modificarPartido.setEstadio(estadio);
-		
+
 		return true;
 	}
-	
+
 	// Trae al jugador por la ID del partido
-	public Partido traerPartido(int idPartido){
+	public Partido traerPartido(int idPartido) {
 		Partido retornoPartido = null;
 
 		int i = 0;
@@ -592,7 +595,7 @@ public class Sistema {
 
 		return retornoPartido;
 	}
-	
+
 	// Elimina al partido al traerle el objeto Partido
 	public boolean eliminarPartido(Partido partido) {
 		return listaPartido.remove(partido);

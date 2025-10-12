@@ -1,6 +1,7 @@
 package Sistema_Futbol;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -442,35 +443,6 @@ public class Sistema {
 		return true;
 	}
 
-	// Agregar jugador al equipo
-
-	public boolean agregarJugadorAlEquipo(Equipo equipo, Jugador jugador) throws Exception {
-
-		// Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
-		boolean mismoJugador = false;
-		int contador = 0;
-
-		while (contador < equipo.getListaJugadores().size() && !mismoJugador) {
-			if (equipo.getListaJugadores().get(contador).getDni() == jugador.getDni()) {
-				mismoJugador = true;
-			}
-			contador++;
-		}
-
-		if (mismoJugador) {
-			throw new Exception("El jugador con DNI " + jugador.getDni()
-					+ " ya existe en la lista de Jugadores del equipo " + equipo.getNombre());
-		}
-
-		return equipo.getListaJugadores().add(jugador);
-	}
-
-	// Baja de jugador del equipo
-
-	public boolean bajaJugadorDelEquipo(Equipo equipo, Jugador jugador) {
-		return equipo.getListaJugadores().remove(jugador);
-	}
-
 	// Metodo para Búsqueda de equipos por fecha de fundación
 
 	public List<Equipo> busquedaEquipoPorFundacion(LocalDate desde, LocalDate hasta) {
@@ -485,24 +457,6 @@ public class Sistema {
 		}
 
 		return equiposFiltrados;
-	}
-
-	// Metodo para calculo de altura promedio de un equipo dado
-
-	public float calcularAlturaPromedioEquipo(Equipo equipo) throws Exception {
-
-		float resultado = 0;
-		int cantidadJugadores = equipo.getListaJugadores().size();
-
-		if (equipo.getListaJugadores().size() == 0) {
-			throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
-		}
-
-		for (int i = 0; i < equipo.getListaJugadores().size(); i++) {
-			resultado = (resultado + equipo.getListaJugadores().get(i).getEstatura());
-		}
-
-		return (resultado / cantidadJugadores);
 	}
 
 	// -------------------------------------------------------------------------------------------------------------
@@ -573,4 +527,77 @@ public class Sistema {
 	}
 
 	// -------------------------------------------------------------------------------------------------------------
+	// CRUD PARTIDO
+
+	// Agrega el partido
+	public boolean agregarPartido(LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante, Estadio estadio)
+			throws Exception {
+		Partido partidoAgregar = new Partido(1, fechaPartido, equipoLocal, equipoVisitante, estadio);
+
+		if (existePartido(partidoAgregar)) {
+			throw new Exception("El partido ya existe.");
+		}
+
+		if (listaPartido.size() > 0) {
+			int id = listaPartido.get(listaPartido.size() - 1).getIdPartido() + 1;
+			partidoAgregar.setIdPartido(id);
+		}
+
+		return listaPartido.add(partidoAgregar);
+	}
+
+	// Comprueba si el partido ya existe si tiene la misma fecha y son los mismos
+	// equipos los que la están jugando.
+	public boolean existePartido(Partido partido) {
+		boolean partidoExiste = false;
+
+		int i = 0;
+
+		while (i < listaPartido.size() && partidoExiste == false) {
+			if (listaPartido.get(i).equals(partido)) {
+				partidoExiste = true;
+			}
+			i++;
+		}
+
+		return partidoExiste;
+	}
+
+	// Modifica el partido menos el idPartido
+	public boolean modificarPartido(Partido partido, LocalDate fechaPartido, Equipo equipoLocal, Equipo equipoVisitante,
+			Estadio estadio) throws Exception {
+		Partido modificarPartido = traerPartido(partido.getIdPartido());
+
+		if (!existePartido(modificarPartido)) {
+			throw new Exception("El partido no existe.");
+		}
+
+		modificarPartido.setFechaPartido(fechaPartido);
+		modificarPartido.setEquipoLocal(equipoLocal);
+		modificarPartido.setEquipoVisitante(equipoVisitante);
+		modificarPartido.setEstadio(estadio);
+
+		return true;
+	}
+
+	// Traer al partido por el ID
+	public Partido traerPartido(int idPartido) {
+		Partido retornoPartido = null;
+
+		int i = 0;
+
+		while (i < listaPartido.size() && retornoPartido == null) {
+			if (listaPartido.get(i).getIdPartido() == idPartido) {
+				retornoPartido = listaPartido.get(i);
+			}
+			i++;
+		}
+
+		return retornoPartido;
+	}
+
+	// Elimina al partido al traerle el objeto Partido
+	public boolean eliminarPartido(Partido partido) {
+		return listaPartido.remove(partido);
+	}
 };

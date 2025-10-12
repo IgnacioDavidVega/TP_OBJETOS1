@@ -54,19 +54,4 @@ public class Jugador extends Persona {
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
-
-    // To string
-    @Override
-    public String toString() {
-        return "\nJugador [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", dni="
-                + dni
-                + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + ", peso=" + peso + ", posicion="
-                + posicion
-                + ", dorsal=" + dorsal + "]";
-    }
-
-    public boolean equals(Jugador jugador) {
-        return jugador.getDni() == this.dni;
-    }
-
 }

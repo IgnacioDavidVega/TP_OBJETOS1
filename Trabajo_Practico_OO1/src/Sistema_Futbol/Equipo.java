@@ -9,7 +9,6 @@ import java.util.List;
 
 // Clase Equipo
 public class Equipo {
-
     private int id;
     private String nombre;
     private String codUnico;
@@ -95,10 +94,14 @@ public class Equipo {
                 + estadio + "]";
     }
 
-    // Hash y equals solo para codUnico
+    // Equals and Hash
+
     @Override
     public int hashCode() {
-        return codUnico.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codUnico == null) ? 0 : codUnico.hashCode());
+        return result;
     }
 
     @Override
@@ -110,6 +113,60 @@ public class Equipo {
         if (getClass() != obj.getClass())
             return false;
         Equipo other = (Equipo) obj;
-        return codUnico.equals(other.codUnico);
+        if (codUnico == null) {
+            if (other.codUnico != null)
+                return false;
+        } else if (!codUnico.equals(other.codUnico))
+            return false;
+        return true;
+    }
+
+    // ---------------------------------------- METODOS CLASE EQUIPO --
+
+    // Metodo para calculo de altura promedio de un equipo dado
+
+    public float calcularAlturaPromedioEquipo() throws Exception {
+
+        float resultado = 0;
+        int cantidadJugadores = getListaJugadores().size();
+
+        if (getListaJugadores().size() == 0) {
+            throw new Exception("ERROR: No hay jugadores en el equipo para poder calcular el promedio de altura.");
+        }
+
+        for (int i = 0; i < getListaJugadores().size(); i++) {
+            resultado = (resultado + getListaJugadores().get(i).getEstatura());
+        }
+
+        return (resultado / cantidadJugadores);
+    }
+
+    // Baja de jugador del equipo
+
+    public boolean bajaJugadorDelEquipo(Jugador jugador) {
+        return getListaJugadores().remove(jugador);
+    }
+
+    // Agregar jugador al equipo
+
+    public boolean agregarJugadorAlEquipo(Jugador jugador) throws Exception {
+
+        // Buscamos si el jugador ya esta en la lista del equipo para no repetirlo.
+        boolean mismoJugador = false;
+        int contador = 0;
+
+        while (contador < getListaJugadores().size() && !mismoJugador) {
+            if (getListaJugadores().get(contador).getDni() == jugador.getDni()) {
+                mismoJugador = true;
+            }
+            contador++;
+        }
+
+        if (mismoJugador) {
+            throw new Exception("El jugador con DNI " + jugador.getDni()
+                    + " ya existe en la lista de Jugadores del equipo " + getNombre());
+        }
+
+        return getListaJugadores().add(jugador);
     }
 }

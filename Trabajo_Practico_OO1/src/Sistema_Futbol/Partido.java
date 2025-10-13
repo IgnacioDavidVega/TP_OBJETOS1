@@ -74,15 +74,13 @@ public class Partido {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Partido other = (Partido) obj;
-		if (idPartido != other.idPartido)
-			return false;
-		return true;
+	    if (this == obj)
+	        return true;
+	    if (obj == null || getClass() != obj.getClass())
+	        return false;
+	    Partido other = (Partido) obj;
+	    return fechaPartido.equals(other.fechaPartido)
+	        && equipoLocal.equals(other.equipoLocal)
+	        && equipoVisitante.equals(other.equipoVisitante);
 	}
 }

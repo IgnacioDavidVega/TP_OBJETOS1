@@ -700,4 +700,32 @@ public class Sistema {
 
 		return equipoMayorPromedioAltura;
 	}
+	
+	// -------------------------------------------------------------------------------------------------------------
+	// HITO 12: Cálculo de goles por jugador: Escribir un método que, dado un objeto Jugador, devuelva el total de goles que ha logrado en el torneo. 
+	public int golesJugadorPorRegistro(Jugador jugador, Torneo torneo) {
+		int golesTotales = 0;
+		
+		for (Registro r : listaRegistro) {
+		    if (r.getJugador().equals(jugador) && torneo.getListaPartido().contains(r.getPartido())) {
+		        golesTotales = golesTotales + r.getCantidadGoles();
+		    }
+		}
+		
+		return golesTotales;
+	}
+	
+	// -------------------------------------------------------------------------------------------------------------
+	// HITO 13: Cálculo de asistencias por jugador: Escribir un método que, dado un objeto Jugador, devuelva el total de asistencias que ha logrado en el torneo. 
+	public int asistenciasJugadorPorRegistro(Jugador jugador, Torneo torneo) {
+		int asistenciasTotales = 0;
+		
+		for (Registro r : listaRegistro) {
+		    if (r.getJugador().equals(jugador) && torneo.getListaPartido().contains(r.getPartido())) {
+		    	asistenciasTotales = asistenciasTotales + r.getCantidadAsistencias();
+		    }
+		}
+		
+		return asistenciasTotales;
+	}
 };

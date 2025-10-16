@@ -63,24 +63,26 @@ public class Partido {
 				+ ", equipoVisitante=" + equipoVisitante + ", estadio=" + estadio + "]";
 	}
 
-	// Hash y equals solo para idPartido
+	// Hash y equals para fechaPartido, equipoLocal y equipoVisitante
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idPartido;
+		result = prime * result + ((fechaPartido == null) ? 0 : fechaPartido.hashCode());
+		result = prime * result + ((equipoLocal == null) ? 0 : equipoLocal.hashCode());
+		result = prime * result + ((equipoVisitante == null) ? 0 : equipoVisitante.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-	    if (this == obj)
-	        return true;
-	    if (obj == null || getClass() != obj.getClass())
-	        return false;
-	    Partido other = (Partido) obj;
-	    return fechaPartido.equals(other.fechaPartido)
-	        && equipoLocal.equals(other.equipoLocal)
-	        && equipoVisitante.equals(other.equipoVisitante);
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		Partido other = (Partido) obj;
+		return fechaPartido.equals(other.fechaPartido)
+				&& equipoLocal.equals(other.equipoLocal)
+				&& equipoVisitante.equals(other.equipoVisitante);
 	}
 }
